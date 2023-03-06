@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:19:54 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 18:44:43 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/06 21:19:47 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ int	event_destroy(t_s_data *data)
 {
 	mlx_destroy_image(data->mlx, data->canvas);
 	mlx_destroy_window(data->mlx, data->main_window);
+	data->canvas = NULL;
+	data->main_window = NULL;
 	return (EXIT_SUCCESS);
 }
