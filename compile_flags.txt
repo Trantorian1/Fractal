@@ -7,3 +7,5 @@ vendor/libft/
 -I
 vendor/minilibx-linux/
 -Weverything
+-D
+XK_MISCELLANY
