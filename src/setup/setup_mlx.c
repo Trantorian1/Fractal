@@ -6,37 +6,47 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:42:36 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 16:55:43 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/06 18:12:56 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "setup_mlx.h"
 
+#include "cleanup.h"
+#include "event_destroy.h"
 #include "libft.h"
 #include "mlx.h"
 #include <stdint.h>
 #include <stdlib.h>
 
+static void	*error_handle(t_s_data *data)
+{
+	if (data->mlx == NULL)
+		return (NULL);
+	if (data->canvas)
+		mlx_destroy_image(data->mlx, data->canvas);
+	if (data->main_window)
+		mlx_destroy_window(data->mlx, data->main_window);
+	mlx_destroy_display(data->mlx);
+	ft_free(data);
+	return (NULL);
+}
+
 t_s_data	*setup_mlx(int16_t width, int16_t height, char *title)
 {
-	void		*mlx;
-	void		*main_window;
 	t_s_data	*data;
 
 	if (width < 1 || height < 1 || title == NULL)
 		return (NULL);
-	mlx = mlx_init();
-	if (mlx == NULL)
-		return (NULL);
-	main_window = mlx_new_window(mlx, width, height, title);
-	if (main_window == NULL)
-	{
-		mlx_destroy_display(mlx);
-		free(mlx);
-		return (NULL);
-	}
 	data = ft_malloc(sizeof(*data));
-	data->mlx = mlx;
-	data->main_window = main_window;
+	data->mlx = mlx_init();
+	if (data->mlx == NULL)
+		return (error_handle(data));
+	data->main_window = mlx_new_window(data->mlx, width, height, title);
+	if (data->main_window == NULL)
+		return (error_handle(data));
+	data->canvas = mlx_new_image(data->mlx, width, height);
+	if (data->canvas == NULL)
+		return (error_handle(data));
 	return (data);
 }

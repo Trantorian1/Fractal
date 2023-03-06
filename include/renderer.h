@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   renderer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:54:24 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 20:19:58 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/06 18:01:13 by                   #+#    #+#             */
+/*   Updated: 2023/03/06 18:01:13 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cleanup.h"
+#ifndef RENDERER_H
+# define RENDERER_H
 
-#include "libft.h"
-#include "mlx.h"
-#include <stdlib.h>
+# include "s_data.h"
 
-void	cleanup(t_s_data *data)
-{
-	if (data == NULL)
-		return ;
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	ft_free_all();
-}
+int	renderer(t_s_data *data);
+
+#endif

@@ -22,7 +22,7 @@ H_FLAGS = HEADERS.collect { |dir| "-I #{dir}" }.join(' ')
 # ==============================================================================
 
 CC = 'clang'
-C_FLAGS = "-Wall -Wextra -Werror #{H_FLAGS}"
+C_FLAGS = "-Wall -Wextra -Werror -O3 #{H_FLAGS}"
 D_FLAGS = "#{H_FLAGS} -M -MP -MM"
 
 SRC_FILES = Rake::FileList.new("#{SRC_DIR}/**/*.c") do |file|
@@ -37,13 +37,14 @@ BIN = 'fractal'
 CLEAN.include(OBJ_FILES, DEP_FILES)
 CLOBBER.include("#{BIN_DIR}/**")
 
-
 # ==============================================================================
 #                                DEBUG COMPILATION
 # ==============================================================================
 
 OBJ_FILES_DEBUG = SRC_FILES.pathmap("#{OBJ_DIR}/debug/%n.o")
 DEP_FILES_DEBUG = SRC_FILES.pathmap("#{OBJ_DIR}/debug/%n.mf")
+
+CLEAN.include(OBJ_FILES_DEBUG, DEP_FILES_DEBUG)
 
 # ==============================================================================
 #                                   DIRECTORIES
@@ -72,7 +73,7 @@ end
 # ==============================================================================
 
 task :debug do
-  C_FLAGS << " -g3 -fsanitize=address #{C_FLAGS}"
+  C_FLAGS << " -g3 -fsanitize=address"
   Rake::Task[:binary_debug].invoke
 end
 

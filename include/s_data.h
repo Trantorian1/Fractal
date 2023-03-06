@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:30 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 16:21:37 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/06 18:02:31 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*main_window;
+	void	*canvas;
 }	t_s_data;
 
 #endif

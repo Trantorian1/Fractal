@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   hex_code.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:54:24 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 20:19:58 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/06 18:17:26 by                   #+#    #+#             */
+/*   Updated: 2023/03/06 18:17:26 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cleanup.h"
+#ifndef HEX_CODE_H
+# define HEX_CODE_H
 
-#include "libft.h"
-#include "mlx.h"
-#include <stdlib.h>
+# include <stdint.h>
 
-void	cleanup(t_s_data *data)
-{
-	if (data == NULL)
-		return ;
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	ft_free_all();
-}
+int32_t	hex_code(int32_t r, int32_t g, int32_t b);
+
+#endif

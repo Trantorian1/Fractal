@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   draw_circle.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:54:24 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 20:19:58 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/06 19:58:08 by                   #+#    #+#             */
+/*   Updated: 2023/03/06 20:15:09 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cleanup.h"
+#ifndef DRAW_CIRCLE_H
+# define DRAW_CIRCLE_H
 
+# include <stdint.h>
+# include "s_data.h"
 #include "libft.h"
-#include "mlx.h"
-#include <stdlib.h>
 
-void	cleanup(t_s_data *data)
-{
-	if (data == NULL)
-		return ;
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	ft_free_all();
-}
+void	draw_circle(t_s_data *data, t_s_vec2d *origin, int32_t r, int32_t rgb);
+
+#endif

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:54:24 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 20:19:58 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/06 18:00:32 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/06 21:13:55 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cleanup.h"
+#include "renderer.h"
 
-#include "libft.h"
+#include "draw_circle.h"
 #include "mlx.h"
 #include <stdlib.h>
 
-void	cleanup(t_s_data *data)
+int	renderer(t_s_data *data)
 {
-	if (data == NULL)
-		return ;
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	ft_free_all();
+	static t_s_vec2d	origin = {500, 500};
+
+	if (data->main_window == NULL)
+		return (EXIT_FAILURE);
+	draw_circle(data, &origin, 200, 0xFF0000);
+	mlx_put_image_to_window(data->mlx, data->main_window, data->canvas, 0, 0);
+	return (EXIT_SUCCESS);
 }

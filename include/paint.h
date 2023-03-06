@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   paint.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:54:24 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 20:19:58 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/06 20:09:50 by                   #+#    #+#             */
+/*   Updated: 2023/03/06 20:13:23 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cleanup.h"
+#ifndef PAINT_H
+# define PAINT_H
 
-#include "libft.h"
-#include "mlx.h"
-#include <stdlib.h>
+# include "s_data.h"
+# include "libft.h"
+# include <stdint.h>
 
-void	cleanup(t_s_data *data)
-{
-	if (data == NULL)
-		return ;
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	ft_free_all();
-}
+void	paint(t_s_data *data, t_s_vec2d *vect, int32_t rgb);
+
+#endif
