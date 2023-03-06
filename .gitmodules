@@ -1,0 +1,9 @@
+[submodule "vendor/libft"]
+	path = vendor/libft
+	url = https://github.com/Trantorian1/libft.git
+[submodule "vendor/extract_headers"]
+	path = vendor/extract_headers
+	url = https://github.com/Trantorian1/extract_headers.git
+[submodule "vendor/minilibx-linux"]
+	path = vendor/minilibx-linux
+	url = https://github.com/42Paris/minilibx-linux.git
