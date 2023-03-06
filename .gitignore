@@ -1,5 +1,5 @@
 # Ignores all binaries
-./bin/**
+bin/**
 
 # Ignores all build files
-./build/**
+build/**
