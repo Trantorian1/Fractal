@@ -35,6 +35,13 @@ mlx_destroy_display(mlx_ptr);
 free(mlx_ptr);
 ```
 
+
+## Compilation
+
+_Since the MLX is dependant on X11, it is compiled as follows:_
+
+**cc main.c -lX11 -lXext -lmlx**
+
 ---
 
 # Windows
@@ -47,7 +54,7 @@ set pixels in a window_
 void    *window;
 
 // Will return NULL if an error occurs !
-window = mlx_new_window(void *mlx_ptr,int size_x,int size_y,char *title);
+window = mlx_new_window(mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 
 if (window == NULL)
     // error handling code
@@ -123,3 +130,40 @@ _Display in MLX is handled through_ Images. _An image is writen to pixel by
 pixel but is displayed as a buffer, that is to say that all the pixels are
 displayed ib the screeen at the same time,_ after _they have all been written to
 the image._
+
+## Creating and Destroying Images
+
+ℹ️  _Images are created using the_ **mlx_new_image** _function. Similarly, they
+are destroyed using the_ **mlx_destroy_image** _function._
+
+```c
+void    *image;
+
+image = mlx_new_image(mlx_ptr, IMAGE_WIDTH, IMAGE_HEIGHT);
+mlx_destroy_image(mlx_ptr, image)
+```
+
+## Writing to images
+
+ℹ️  _Images cannot be written to directly in the MLX, instaed it is necesary to
+retrieve an Image's_ **data buffer** _and write to it instead._
+
+```c
+char	*mlx_get_data_addr(
+    void *img_ptr,          // Image to get the data buffer from
+    int *bits_per_pixel,    // Number of bits used to represent each pixel
+    int *size_line,         // Amount of bytes taken up by one row of the image
+    int *endian);           // If the machine is big-endian or little-endian
+```
+
+⚠️  bits_per_pixel, size_line and endian are pointers which will have their
+values written by _mlx_get_data_addr_.
+
+⚠️  Since the resulting array is 1D, some conversions have to be made to transfer
+2D coordinates into an array index.
+
+> index = (y * size_line + x * (bits_per_pixel / 8))
+
+⚠️  **Image colors are direcly stored as hex color codes**
+
+---
