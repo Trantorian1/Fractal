@@ -42,18 +42,32 @@ CLOBBER.include("#{BIN_DIR}/**")
 # ==============================================================================
 
 OBJ_FILES_DEBUG = SRC_FILES.pathmap("#{OBJ_DIR}/debug/%n.o")
-DEP_FILES_DEBUG = SRC_FILES.pathmap("#{OBJ_DIR}/debug/%n.mf")
+DEP_FILES_DEBUG = SRC_FILES.pathmap("#{DEP_DIR}/debug/%n.mf")
 
 CLEAN.include(OBJ_FILES_DEBUG, DEP_FILES_DEBUG)
+
+# ==============================================================================
+#                               SANITIZE COMPILATION
+# ==============================================================================
+
+OBJ_FILES_SANITIZE = SRC_FILES.pathmap("#{OBJ_DIR}/sanitize/%n.o")
+DEP_FILES_SANITIZE = SRC_FILES.pathmap("#{DEP_DIR}/sanitize/%n.mf")
+
+CLEAN.include(OBJ_FILES_SANITIZE, DEP_FILES_SANITIZE)
 
 # ==============================================================================
 #                                   DIRECTORIES
 # ==============================================================================
 
+OBJ_DIR_ALL = [OBJ_DIR, "#{OBJ_DIR}/debug", "#{OBJ_DIR}/sanitize"]
+DEP_DIR_ALL = [DEP_DIR, "#{DEP_DIR}/debug", "#{DEP_DIR}/sanitize"]
+
 directory OBJ_DIR
 directory DEP_DIR
 directory "#{OBJ_DIR}/debug"
 directory "#{DEP_DIR}/debug"
+directory "#{OBJ_DIR}/sanitize"
+directory "#{DEP_DIR}/sanitize"
 directory BIN_DIR
 
 # ==============================================================================
@@ -64,6 +78,22 @@ task default: :build
 
 task build: :binary
 
+task :build_all do
+  Rake::Task[:binary].invoke
+  C_FLAGS << ' -g3'
+  Rake::Task[:binary_debug].invoke
+  C_FLAGS << ' -fsanitize=address'
+  Rake::Task[:binary_sanitize].invoke
+end
+
+task :clean_build do
+  rm_rf OBJ_FILES
+end
+
+task clobber_build: :clean_build do
+  rm "#{BIN_DIR}/#{BIN}"
+end
+
 file binary: [*OBJ_FILES, BIN_DIR] do
   sh "#{CC} #{C_FLAGS} #{OBJ_FILES} -o #{BIN_DIR}/#{BIN} #{LIB_X11} #{LIB_FLAGS}"
 end
@@ -73,8 +103,16 @@ end
 # ==============================================================================
 
 task :debug do
-  C_FLAGS << " -g3 -fsanitize=address"
+  C_FLAGS << ' -g3'
   Rake::Task[:binary_debug].invoke
+end
+
+task :clean_debug do
+  rm_rf OBJ_FILES_DEBUG
+end
+
+task clobber_debug: :clean_debug do
+  rm "#{BIN_DIR}/#{BIN}_debug"
 end
 
 file binary_debug: [*OBJ_FILES_DEBUG, BIN_DIR] do
@@ -83,14 +121,36 @@ file binary_debug: [*OBJ_FILES_DEBUG, BIN_DIR] do
 end
 
 # ==============================================================================
+#                                  SANITIZE RULES
+# ==============================================================================
+
+task :sanitize do
+  C_FLAGS << ' -g3 -fsanitize=address'
+  Rake::Task[:binary_sanitize].invoke
+end
+
+task :clean_sanitize do
+  rm_rf OBJ_FILES_SANITIZE
+end
+
+task clobber_sanitize: :clean_sanitize do
+  rm "#{BIN_DIR}/#{BIN}_sanitize"
+end
+
+file binary_sanitize: [*OBJ_FILES_SANITIZE, BIN_DIR] do
+  sh "#{CC} #{C_FLAGS} #{OBJ_FILES_SANITIZE} -o #{BIN_DIR}/#{BIN}_sanitize " +
+     "#{LIB_X11} #{LIB_FLAGS}"
+end
+
+# ==============================================================================
 #                                 DEPENDENCY RULES
 # ==============================================================================
 
-rule '.o' => [->(f) { source_obj(f) }, OBJ_DIR, "#{OBJ_DIR}/debug"] do |task|
+rule '.o' => [->(f) { source_obj(f) }, *OBJ_DIR_ALL] do |task|
   sh "#{CC} #{C_FLAGS} -c #{task.source} -o #{task.name}"
 end
 
-rule '.mf' => [->(f) { source_dep(f) }, DEP_DIR, "#{DEP_DIR}/debug"] do |task|
+rule '.mf' => [->(f) { source_dep(f) }, *DEP_DIR_ALL] do |task|
   cmd = "#{CC} #{D_FLAGS} #{task.source} -MT #{task.source.ext('.o')}"
   make_target = `#{cmd}`
 
@@ -136,6 +196,12 @@ DEP_FILES.each do |d_file|
 end
 
 DEP_FILES_DEBUG.each do |d_file|
+  file d_file
+  puts "importing #{d_file}"
+  import d_file
+end
+
+DEP_FILES_SANITIZE.each do |d_file|
   file d_file
   puts "importing #{d_file}"
   import d_file

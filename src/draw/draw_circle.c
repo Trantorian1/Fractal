@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:45:31 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 21:02:31 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/06 21:23:46 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,4 @@ void	draw_circle(t_s_data *data, t_s_vec2d *origin, int32_t r, int32_t rgb)
 		}
 		vect.x++;
 	}
-	mlx_put_image_to_window(data->mlx, data->main_window, data->canvas, 0, 0);
 }
