@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   renderer.c                                         :+:      :+:    :+:   */
+/*   draw_rectangle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 18:00:32 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/07 17:51:06 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 12:11:32 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/08 12:15:43 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "renderer.h"
+#include "draw_rectangle.h"
 
-#include "draw_circle.h"
-#include "mlx.h"
-#include <stdlib.h>
+#include "paint.h"
 
-int	renderer(t_s_data *data)
+void	draw_rectangle(
+	t_s_data *data,
+	t_s_vec2d *origin,
+	t_s_vec2d *size,
+	int32_t rgb)
 {
-	static t_s_vec2d	origin = {500, 500};
+	t_s_vec2d	cursor;
 
-	if (data->main_window == NULL)
-		return (EXIT_FAILURE);
-	draw_circle(data, &origin, 200, 0xFF0000);
-	mlx_put_image_to_window(data->mlx, data->main_window, data->canvas, 0, 0);
-	return (EXIT_SUCCESS);
+	cursor.x = origin->x;
+	while (cursor.x - origin->x < size->x)
+	{
+		cursor.y = origin->y;
+		while (cursor.y - origin->y < size->y)
+		{
+			paint(data, &cursor, rgb);
+			cursor.y++;
+		}
+		cursor.x++;
+	}
 }

@@ -25,6 +25,8 @@ CC = 'clang'
 C_FLAGS = "-Wall -Wextra -Werror -O3 #{H_FLAGS}"
 D_FLAGS = "#{H_FLAGS} -M -MP -MM"
 
+$compile_flags = C_FLAGS
+
 SRC_FILES = Rake::FileList.new("#{SRC_DIR}/**/*.c") do |file|
   file.exclude { |f| "git ls-files #{f}".empty? }
 end
@@ -41,6 +43,8 @@ CLOBBER.include("#{BIN_DIR}/**")
 #                                DEBUG COMPILATION
 # ==============================================================================
 
+DEBUG_FLAGS = "-Wall -Wextra -Werror -g3 #{H_FLAGS}"
+
 OBJ_FILES_DEBUG = SRC_FILES.pathmap("#{OBJ_DIR}/debug/%n.o")
 DEP_FILES_DEBUG = SRC_FILES.pathmap("#{DEP_DIR}/debug/%n.mf")
 
@@ -49,6 +53,8 @@ CLEAN.include(OBJ_FILES_DEBUG, DEP_FILES_DEBUG)
 # ==============================================================================
 #                               SANITIZE COMPILATION
 # ==============================================================================
+
+SANTIZE_FLAGS = "-Wall -Wextra -Werror -g3 -fsanitize=address #{H_FLAGS}"
 
 OBJ_FILES_SANITIZE = SRC_FILES.pathmap("#{OBJ_DIR}/sanitize/%n.o")
 DEP_FILES_SANITIZE = SRC_FILES.pathmap("#{DEP_DIR}/sanitize/%n.mf")
@@ -80,9 +86,9 @@ task build: :binary
 
 task :build_all do
   Rake::Task[:binary].invoke
-  C_FLAGS << ' -g3'
+  $compile_flags = DEBUG_FLAGS
   Rake::Task[:binary_debug].invoke
-  C_FLAGS << ' -fsanitize=address'
+  $compile_flags = SANTIZE_FLAGS
   Rake::Task[:binary_sanitize].invoke
 end
 
@@ -95,7 +101,8 @@ task clobber_build: :clean_build do
 end
 
 file binary: [*OBJ_FILES, BIN_DIR] do
-  sh "#{CC} #{C_FLAGS} #{OBJ_FILES} -o #{BIN_DIR}/#{BIN} #{LIB_X11} #{LIB_FLAGS}"
+  sh "#{CC} #{$compile_flags} #{OBJ_FILES} -o #{BIN_DIR}/#{BIN} " +
+     "#{LIB_X11} #{LIB_FLAGS}"
 end
 
 # ==============================================================================
@@ -116,7 +123,7 @@ task clobber_debug: :clean_debug do
 end
 
 file binary_debug: [*OBJ_FILES_DEBUG, BIN_DIR] do
-  sh "#{CC} #{C_FLAGS} #{OBJ_FILES_DEBUG} -o #{BIN_DIR}/#{BIN}_debug " +
+  sh "#{CC} #{$compile_flags} #{OBJ_FILES_DEBUG} -o #{BIN_DIR}/#{BIN}_debug " +
      "#{LIB_X11} #{LIB_FLAGS}"
 end
 
@@ -138,7 +145,7 @@ task clobber_sanitize: :clean_sanitize do
 end
 
 file binary_sanitize: [*OBJ_FILES_SANITIZE, BIN_DIR] do
-  sh "#{CC} #{C_FLAGS} #{OBJ_FILES_SANITIZE} -o #{BIN_DIR}/#{BIN}_sanitize " +
+  sh "#{CC} #{$compile_flags} #{OBJ_FILES_SANITIZE} -o #{BIN_DIR}/#{BIN}_sanitize " +
      "#{LIB_X11} #{LIB_FLAGS}"
 end
 
@@ -147,7 +154,7 @@ end
 # ==============================================================================
 
 rule '.o' => [->(f) { source_obj(f) }, *OBJ_DIR_ALL] do |task|
-  sh "#{CC} #{C_FLAGS} -c #{task.source} -o #{task.name}"
+  sh "#{CC} #{$compile_flags} -c #{task.source} -o #{task.name}"
 end
 
 rule '.mf' => [->(f) { source_dep(f) }, *DEP_DIR_ALL] do |task|
