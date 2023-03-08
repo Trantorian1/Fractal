@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rectangle.h                                   :+:      :+:    :+:   */
+/*   fractal_test.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 12:12:39 by                   #+#    #+#             */
-/*   Updated: 2023/03/08 14:35:16 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 14:29:04 by                   #+#    #+#             */
+/*   Updated: 2023/03/08 14:29:23 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_RECTANGLE_H
-# define DRAW_RECTANGLE_H
+#ifndef FRACTAL_TEST_H
+# define FRACTAL_TEST_H
 
-# include <stdint.h>
 # include "s_data.h"
 
-void	draw_rectangle(t_s_data *data, t_s_vec2d *origin, t_s_vec2d *size, int32_t rgb);
+t_s_fractal	*fractal_test(void);
 
 #endif

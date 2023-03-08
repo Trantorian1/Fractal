@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractal_test.c                                     :+:      :+:    :+:   */
+/*   draw_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 14:25:00 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 16:07:18 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 14:35:48 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/08 14:38:17 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractal_test.h"
+#include "draw_square.h"
 
-#include "s_data.h"
-#include <stdint.h>
+#include "draw_rectangle.h"
 
-static int32_t	fractal_color(int32_t bail)
+void	draw_square(
+	t_s_data *data,
+	t_s_vec2d *origin,
+	int32_t size,
+	int32_t rgb)
 {
-	(void)bail;
-	return (bail % 256);
-}
+	t_s_vec2d	dimensions;
 
-static int32_t	fractal_series(t_s_data *data, t_s_vec2d *vect)
-{
-	(void)data;
-	(void)vect;
-	return (0xff);
-}
-
-t_s_fractal	*fractal_test(void)
-{
-	static t_s_fractal	fractal;
-
-	fractal.series = &fractal_series;
-	fractal.color = &fractal_color;
-	return (&fractal);
+	dimensions.x = size;
+	dimensions.y = size;
+	draw_rectangle(data, origin, &dimensions, rgb);
 }

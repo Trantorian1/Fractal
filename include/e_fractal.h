@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rectangle.h                                   :+:      :+:    :+:   */
+/*   e_fractal.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 12:12:39 by                   #+#    #+#             */
-/*   Updated: 2023/03/08 14:35:16 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 14:40:32 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/08 15:56:05 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_RECTANGLE_H
-# define DRAW_RECTANGLE_H
+#ifndef E_FRACTAL_H
+# define E_FRACTAL_H
 
-# include <stdint.h>
-# include "s_data.h"
-
-void	draw_rectangle(t_s_data *data, t_s_vec2d *origin, t_s_vec2d *size, int32_t rgb);
+typedef enum E_FRACTAL_H
+{
+	TEST,
+	RANDOM,
+	MANDELBROOT,
+	JULIA,
+	E_FRACTAL_SIZE
+}	t_e_fractal;
 
 #endif

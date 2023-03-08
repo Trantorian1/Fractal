@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractal_test.c                                     :+:      :+:    :+:   */
+/*   setup_fractal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 14:25:00 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 16:07:18 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 14:41:43 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/08 15:56:27 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "setup_fractal.h"
+
 #include "fractal_test.h"
+#include "fractal_random.h"
 
-#include "s_data.h"
-#include <stdint.h>
+typedef t_s_fractal	*(*t_generator)(void);
 
-static int32_t	fractal_color(int32_t bail)
+void	setup_fractal(t_s_data *data, t_e_fractal type)
 {
-	(void)bail;
-	return (bail % 256);
-}
+	static const t_generator	generators[E_FRACTAL_SIZE] = {
+		&fractal_test,
+		&fractal_random,
+		&fractal_test,
+		&fractal_test
+	};
 
-static int32_t	fractal_series(t_s_data *data, t_s_vec2d *vect)
-{
-	(void)data;
-	(void)vect;
-	return (0xff);
-}
-
-t_s_fractal	*fractal_test(void)
-{
-	static t_s_fractal	fractal;
-
-	fractal.series = &fractal_series;
-	fractal.color = &fractal_color;
-	return (&fractal);
+	if (!data)
+		return ;
+	data->fractal = generators[type]();
 }

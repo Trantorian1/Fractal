@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:42:36 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 18:12:56 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:58:55 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ t_s_data	*setup_mlx(int16_t width, int16_t height, char *title)
 	data->canvas = mlx_new_image(data->mlx, width, height);
 	if (data->canvas == NULL)
 		return (error_handle(data));
+	data->width = width;
+	data->height = height;
 	return (data);
 }

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rectangle.h                                   :+:      :+:    :+:   */
+/*   draw_square.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 12:12:39 by                   #+#    #+#             */
-/*   Updated: 2023/03/08 14:35:16 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 14:36:37 by                   #+#    #+#             */
+/*   Updated: 2023/03/08 14:36:37 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_RECTANGLE_H
-# define DRAW_RECTANGLE_H
+#ifndef DRAW_SQUARE_H
+# define DRAW_SQUARE_H
 
 # include <stdint.h>
 # include "s_data.h"
 
-void	draw_rectangle(t_s_data *data, t_s_vec2d *origin, t_s_vec2d *size, int32_t rgb);
+void	draw_square(t_s_data *data, t_s_vec2d *origin, int32_t size, int32_t rgb);
 
 #endif
