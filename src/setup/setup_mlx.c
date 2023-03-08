@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:42:36 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 14:58:55 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/08 18:51:50 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ static void	*error_handle(t_s_data *data)
 	return (NULL);
 }
 
+static void	setup_view_screen(t_s_data *data, int16_t width, int16_t height)
+{
+	data->view_screen.width = width;
+	data->view_screen.height = height;
+	data->view_screen.origin.x = 0;
+	data->view_screen.origin.y = 0;
+}
+
 t_s_data	*setup_mlx(int16_t width, int16_t height, char *title)
 {
 	t_s_data	*data;
@@ -48,7 +56,6 @@ t_s_data	*setup_mlx(int16_t width, int16_t height, char *title)
 	data->canvas = mlx_new_image(data->mlx, width, height);
 	if (data->canvas == NULL)
 		return (error_handle(data));
-	data->width = width;
-	data->height = height;
+	setup_view_screen(data, width, height);
 	return (data);
 }

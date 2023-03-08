@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 16:08:21 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/08 19:38:33 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@
 # define RECTANGLE_MIN_SIZE 16
 #endif
 
-static bool	recursive_pass(t_s_data *data, t_s_vec2d *origin, int32_t size);
+static bool	recursive_pass(t_s_data *data, t_s_vec2d_d *origin, double l);
 
 static int32_t	trace_edge(
 	t_s_data	*data,
-	t_s_vec2d	*start,
-	t_s_vec2d	*increment,
+	t_s_vec2d_d	*start,
+	t_s_vec2d_d	*increment,
 	int32_t l)
 {
 	int32_t		bail_prev;
 	int32_t		bail_curr;
-	t_s_vec2d	end;
+	t_s_vec2d_d	end;
+	t_s_vec2d_d	screen;
 
 	end.x = start->x + increment->x * l;
 	end.y = start->y + increment->y * l;
@@ -94,44 +95,55 @@ static void	handle_fail(t_s_data *data, t_s_vec2d *origin, int32_t size)
 	cursor.y = origin->y;
 }
 
-static bool	recursive_pass(t_s_data *data, t_s_vec2d *origin, int32_t size)
+static bool	recursive_pass(t_s_data *data, t_s_vec2d_d *origin, double l)
 {
-	int32_t					i;
-	t_s_vec2d				cursor;
-	t_s_vec2d				increment;
-	static const t_s_vec2d	increment_map[4] = {{.x = 1, .y = 0},
-	{.x = 0, .y = 1}, {.x = -1, .y = 0}, {.x = 0, .y = -1}};
+	double				delta;
+	int32_t				i;
+	t_s_vec2d_d			cursor;
+	t_s_vec2d_d			increment;
+	static t_s_vec2d_d	increment_map[4] = {{.x = 1.0, .y = 0.0},
+	{.x = 0.0, .y = 1.0}, {.x = -1.0, .y = 0.0}, {.x = 0.0, .y = -1.0}};
 
+	delta = data->view_screen / data->dimension.x;
+	i = 0;
+	while (i < 4)
+	{
+		increment_map[i].x *= delta;
+		increment_map[i].y *= delta;
+		i++;
+	}
 	i = 0;
 	cursor.x = origin->x;
 	cursor.y = origin->y;
-	while (i < size * 4)
+	while (i < l * 4)
 	{
-		increment = increment_map[i / size];
-		i += trace_edge(data, &cursor, &increment, size);
-		if (i % size != 0)
+		increment = increment_map[i / l];
+		i += trace_edge(data, &cursor, &increment, l);
+		if (i % l != 0)
 		{
-			if (size <= RECTANGLE_MIN_SIZE)
-				handle_fail(data, origin, size);
+			if (l <= RECTANGLE_MIN_SIZE)
+				handle_fail(data, origin, l);
 			else
-				recurse(data, origin, size);
+				recurse(data, origin, l);
 			return (false);
 		}
-		cursor.x += increment.x * size;
-		cursor.y += increment.y * size;
+		cursor.x += increment.x * l;
+		cursor.y += increment.y * l;
 	}
-	draw_square(data, origin, size, *(int *)get_pixel(data, &cursor));
+	draw_square(data, origin, l, *(int *)get_pixel(data, &cursor));
 	return (true);
 }
 
 // void	render_rectangles(t_s_data *data, t_s_symetry *symmetry)
 void	render_rectangles(t_s_data *data)
 {
-	t_s_vec2d	origin;
+	t_s_vec2d_d	origin;
+	double		l;
 
 	if (data == NULL)
 		return ;
-	origin.x = 0;
-	origin.y = 0;
-	recursive_pass(data, &origin, max(data->width, data->height));
+	origin.x = 0.0;
+	origin.y = 0.0;
+	l = max_d(data->view_screen.width, data->view_screen.height);
+	recursive_pass(data, &origin, l);
 }

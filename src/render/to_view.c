@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paint.c                                            :+:      :+:    :+:   */
+/*   to_view.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 18:18:11 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 18:32:34 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/08 18:44:28 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/08 18:49:20 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "paint.h"
+#include "to_view.h"
 
-#include "get_pixel.h"
+#include "libft.h"
 
-void	paint(t_s_data *data, t_s_vec2d_d *vect, int32_t rgb)
+t_s_vec2d_d	*to_view(t_s_view view_old, t_s_view view_new, t_s_vec2d_d vect)
 {
-	if (data == NULL || vect == NULL)
-		return ;
-	*(int *)get_pixel(data, vect) = rgb;
+	double		ratio;
+
+	ratio = view_new.width / view_old.width;
+	return (vec2d_new_d(vect.x * ratio, vect.y * ratio));
 }

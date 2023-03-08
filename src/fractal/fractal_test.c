@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:25:00 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 16:07:18 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:54:28 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int32_t	fractal_color(int32_t bail)
 	return (bail % 256);
 }
 
-static int32_t	fractal_series(t_s_data *data, t_s_vec2d *vect)
+static int32_t	fractal_series(t_s_data *data, t_s_vec2d_d *vect)
 {
 	(void)data;
 	(void)vect;
@@ -30,7 +30,7 @@ static int32_t	fractal_series(t_s_data *data, t_s_vec2d *vect)
 
 t_s_fractal	*fractal_test(void)
 {
-	static t_s_fractal	fractal;
+	static t_s_fractal			fractal;
 
 	fractal.series = &fractal_series;
 	fractal.color = &fractal_color;
