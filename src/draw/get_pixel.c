@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:33:40 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/07 17:41:07 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 12:54:05 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 typedef struct data_image
 {
-	uint32_t	size_line;
-	uint32_t	bpp;
-	uint32_t	endian;
-	char		*data;
+	int32_t	size_line;
+	int32_t	bpp;
+	int32_t	endian;
+	char	*data;
 }	t_s_data_image;
 
 static t_s_data_image	*get_image_data(t_s_data *data)
@@ -30,23 +30,23 @@ static t_s_data_image	*get_image_data(t_s_data *data)
 	data_image = ft_malloc(sizeof(*data_image));
 	data_image->data = mlx_get_data_addr(
 			data->canvas,
-			(int *)&data_image->bpp,
-			(int *)&data_image->size_line,
-			(int *)&data_image->endian);
+			(int32_t *)&data_image->bpp,
+			(int32_t *)&data_image->size_line,
+			(int32_t *)&data_image->endian);
 	return (data_image);
 }
 
-static uint32_t	to_index(t_s_vec2d *vect, uint32_t size_line, uint32_t bpp)
+static int32_t	to_index(t_s_vec2d_d vect, int32_t size_line, int32_t bpp)
 {
-	return ((uint32_t)vect->y * size_line + (uint32_t)vect->x * (bpp / 8));
+	return ((int32_t)vect.y * size_line + (int32_t)vect.x * (bpp / 8));
 }
 
-char	*get_pixel(t_s_data *data, t_s_vec2d *vect)
+char	*get_pixel(t_s_data *data, t_s_vec2d_d vect)
 {
 	static t_s_data_image	*data_image = NULL;
-	uint32_t				index;
+	int32_t					index;
 
-	if (data == NULL || vect == NULL)
+	if (data == NULL)
 		return (NULL);
 	if (data_image == NULL)
 		data_image = get_image_data(data);

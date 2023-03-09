@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pixel.h                                        :+:      :+:    :+:   */
+/*   render_fill.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/07 17:41:09 by                   #+#    #+#             */
-/*   Updated: 2023/03/09 12:54:21 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/09 12:36:09 by                   #+#    #+#             */
+/*   Updated: 2023/03/09 12:37:33 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_PIXEL_H
-# define GET_PIXEL_H
+#ifndef RENDER_FILL_H
+# define RENDER_FILL_H
 
+# include <stdint.h>
 # include "s_data.h"
 
-char	*get_pixel(t_s_data *data, t_s_vec2d_d vect);
+void	render_fill(t_s_data *data, t_s_vec2d_d origin, int32_t len, int32_t color);
 
 #endif
