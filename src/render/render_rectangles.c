@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 18:39:23 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 19:25:20 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,22 +103,26 @@ static void	render_children(
 
 static bool	contains_fractal(
 	t_s_data *data,
-	t_s_vec2d_d in_screen_min,
+	t_s_vec2d_d min,
 	int32_t len)
 {
-	t_s_vec2d_d	in_screen_max;
+	t_s_vec2d_d	max;
 	t_s_view	*view;
 	bool		in_x;
 	bool		in_y;
 
-	vec2d_copy_d(&in_screen_max, in_screen_min);
-	in_screen_max.x += len;
-	in_screen_max.y += len;
+	vec2d_copy_d(&max, min);
+	max.x += len;
+	max.y += len;
+	to_fractal_space(data, &min, min, data->ratio);
+	to_fractal_space(data, &max, max, data->ratio);
+	min.y = -min.y;
+	max.y = -max.y;
 	view = &data->view_fractal;
-	in_x = ((in_screen_min.x <= view->origin.x)
-			&& (in_screen_max.x >= view->origin.x + view->width));
-	in_y = ((in_screen_min.x <= view->origin.y)
-			&& (in_screen_max.y >= view->origin.y + view->height));
+	in_x = ((min.x <= -3)
+			&& (max.x >= 3));
+	in_y = ((min.y <= -3)
+			&& (max.y >= 3));
 	return (in_x && in_y);
 }
 

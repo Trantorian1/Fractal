@@ -11,7 +11,7 @@ LIB_HASH = {
   './vendor/libft': 'ft',
   './vendor/minilibx-linux': 'mlx'
 }
-LIB_X11 = '-lX11 -lXext'
+LIB_X11 = '-lX11 -lXext -lm'
 LIB_FLAGS = LIB_HASH.collect { |key, value| "-L#{key} -l#{value}" }.join(' ')
 
 HEADERS  = ['./include', './vendor/libft', './vendor/minilibx-linux']

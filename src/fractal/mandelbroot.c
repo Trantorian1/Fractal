@@ -6,13 +6,15 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:13:07 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 17:46:21 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 19:33:28 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandelbroot.h"
 
+#include "lchToRgb.h"
 #include "libft.h"
+#include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -55,9 +57,23 @@ static int32_t	mandelbroot_series(t_s_data *data, t_s_vec2d_d vect)
 	return (index);
 }
 
-static int32_t	mandelbroot_color(int32_t bail)
+/* static int32_t	mandelbroot_color(int32_t bail)
 {
 	return (0xff * bail / 200);
+} */
+
+static int32_t	mandelbroot_hsl(int32_t bail)
+{
+	double		s;
+	double		v;
+	LCHColor	lch;	
+
+	s = bail / 1000.0;
+	v = 1.0 - pow(cos(M_PI * s), 2.0);
+	lch.L = 75 - (75 * v);
+	lch.C = 28 + (75 - (75 * v));
+	lch.H = fmod(pow(360 * s, 1.5), 360);
+	return (lchToRgb(lch));
 }
 
 t_s_fractal	*mandelbroot(void)
@@ -66,9 +82,10 @@ t_s_fractal	*mandelbroot(void)
 	static t_s_vec2d_d	origin = {.x = -3, .y = 3};
 
 	mandelbroot.series = &mandelbroot_series;
-	mandelbroot.color = &mandelbroot_color;
+	mandelbroot.color = &mandelbroot_hsl;
 	mandelbroot.view_initial.width = 6;
-	mandelbroot.max_iter = 200;
+	mandelbroot.view_initial.height = 6;
+	mandelbroot.max_iter = 1000;
 	mandelbroot.bail_bound = 4;
 	vec2d_copy_d(&mandelbroot.view_initial.origin, origin);
 	return (&mandelbroot);
