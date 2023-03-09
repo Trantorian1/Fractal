@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:45:31 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/06 21:23:46 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 13:15:37 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	draw_circle(t_s_data *data, t_s_vec2d *origin, int32_t r, int32_t rgb)
 	t_s_vec2d	vect;
 	t_s_vec2d	in_canvas;
 
+	(void)data;
+	(void)rgb;
 	vect.x = -r;
 	while (vect.x < r)
 	{
@@ -38,7 +40,7 @@ void	draw_circle(t_s_data *data, t_s_vec2d *origin, int32_t r, int32_t rgb)
 			{
 				in_canvas.x = origin->x + vect.x;
 				in_canvas.y = origin->y + vect.y;
-				paint(data, &in_canvas, rgb);
+				// paint(data, in_canvas, rgb);
 			}
 			vect.y++;
 		}

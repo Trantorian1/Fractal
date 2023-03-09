@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 13:00:21 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 13:01:20 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	render_rectangles(t_s_data *data)
 {
 	t_s_vec2d_d	origin;
 	int32_t		len;
-	double		ratio;
 
 	if (data == NULL)
 		return ;

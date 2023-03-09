@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paint.c                                            :+:      :+:    :+:   */
+/*   mandelbroot.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 18:18:11 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 13:05:06 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/09 13:20:06 by                   #+#    #+#             */
+/*   Updated: 2023/03/09 13:20:30 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "paint.h"
+#ifndef MANDELBROOT_H
+# define MANDELBROOT_H
 
-#include "get_pixel.h"
+# include "s_data.h"
 
-void	paint(t_s_data *data, t_s_vec2d_d vect, int32_t rgb)
-{
-	if (data == NULL)
-		return ;
-	*(int *)get_pixel(data, vect) = rgb;
-}
+t_s_fractal	*mandelbroot(void);
+
+#endif

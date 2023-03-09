@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:52:56 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 16:07:52 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 13:12:03 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define WIDTH 1024
-#define HEIGHT 1024
+#ifndef WIDTH
+# define WIDTH 1024
+#endif
+
+#ifndef HEIGHT
+# define HEIGHT 1024
+#endif
+
 #define TITLE "Fractal"
 
 int	main(int arc, const char *argv[])
