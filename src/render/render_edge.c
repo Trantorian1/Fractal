@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:49:55 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 16:19:17 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:52:00 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 #include "paint.h"
 #include "to_fractal_space.h"
+#include "to_fractal_increment.h"
 
 static int32_t	drawn(t_s_vec2d_d start, t_s_vec2d_d end)
 {
@@ -79,7 +80,7 @@ int32_t	render_edge(
 	int32_t		bail_curr;
 
 	vec2d_copy_d(&in_screen, start);
-	to_fractal_space(data, &incr_fractal, incr_screen, data->ratio);
+	to_fractal_increment(data, &incr_fractal, incr_screen);
 	to_fractal_space(data, &in_fractal, start, data->ratio);
 	bail_prev = calculate_bail(data, in_fractal, in_screen);
 	increment(&in_screen, incr_screen, &in_fractal, incr_fractal);

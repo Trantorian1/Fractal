@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 16:20:29 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 17:51:40 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "paint.h"
 #include "get_pixel.h"
 #include "libft.h"
+#include <stdio.h>
 
 #ifndef RECTANGLE_MIN_SIZE
 # define RECTANGLE_MIN_SIZE 16
@@ -60,13 +61,13 @@ static void	handle_fail(
 	while ((in_screen.x - origin.x) < len)
 	{
 		in_screen.y = origin.y;
-		in_fractal.y = origin.y * data->ratio + data->view_fractal.origin.y;
+		in_fractal.y = -origin.y * data->ratio + data->view_fractal.origin.y;
 		while ((in_screen.y - origin.y) < len)
 		{
 			bailout = data->fractal->series(data, in_fractal);
 			color = data->fractal->color(bailout);
 			paint(data, in_screen, color);
-			in_fractal.y += data->ratio;
+			in_fractal.y -= data->ratio;
 			in_screen.y++;
 		}
 		in_fractal.x += data->ratio;
@@ -164,5 +165,5 @@ void	render_rectangles(t_s_data *data)
 		return ;
 	origin = data->view_screen.origin;
 	len = (int32_t)data->view_screen.width;
-	recursive_draw(data, origin, len);
+	render_children(data, origin, len);
 }
