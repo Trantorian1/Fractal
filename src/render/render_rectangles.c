@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 17:51:40 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 18:39:23 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include "render_rectangles.h"
 
+#include "to_fractal_space.h"
 #include "render_edge.h"
 #include "render_fill.h"
 #include "paint.h"
@@ -100,6 +101,27 @@ static void	render_children(
 	recursive_draw(data, origin, len_child);
 }
 
+static bool	contains_fractal(
+	t_s_data *data,
+	t_s_vec2d_d in_screen_min,
+	int32_t len)
+{
+	t_s_vec2d_d	in_screen_max;
+	t_s_view	*view;
+	bool		in_x;
+	bool		in_y;
+
+	vec2d_copy_d(&in_screen_max, in_screen_min);
+	in_screen_max.x += len;
+	in_screen_max.y += len;
+	view = &data->view_fractal;
+	in_x = ((in_screen_min.x <= view->origin.x)
+			&& (in_screen_max.x >= view->origin.x + view->width));
+	in_y = ((in_screen_min.x <= view->origin.y)
+			&& (in_screen_max.y >= view->origin.y + view->height));
+	return (in_x && in_y);
+}
+
 /**
  * @brief Recursively tries to fill smaller and smaller rectangles.
  *
@@ -126,6 +148,8 @@ static void	recursive_draw(
 	const static t_s_vec2d_d	increment_map[4] = {{.x = 1.0, .y = 0.0},
 	{.x = 0.0, .y = 1.0}, {.x = -1.0, .y = 0.0}, {.x = 0.0, .y = -1.0}};
 
+	if (contains_fractal(data, origin, len))
+		return (render_children(data, origin, len));
 	vec2d_copy_d(&in_screen, origin);
 	index_prev = -1;
 	index_curr = 0;
@@ -165,5 +189,5 @@ void	render_rectangles(t_s_data *data)
 		return ;
 	origin = data->view_screen.origin;
 	len = (int32_t)data->view_screen.width;
-	render_children(data, origin, len);
+	recursive_draw(data, origin, len);
 }
