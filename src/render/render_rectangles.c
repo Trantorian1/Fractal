@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 13:01:20 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:17:18 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ static void	handle_fail(
 	int32_t		bailout;
 	int32_t		color;
 
-	vec2d_copy_d(&in_screen, origin);
-	vec2d_mult_d(vec2d_copy_d(&in_fractal, in_screen), data->ratio);
+	in_screen.x = origin.x;
+	in_fractal.x = origin.x * data->ratio;
 	while ((in_screen.x - origin.x) < len)
 	{
+		in_screen.y = origin.y;
+		in_fractal.y = origin.y * data->ratio;
 		while ((in_screen.y - origin.y) < len)
 		{
 			bailout = data->fractal->series(data, in_fractal);
@@ -99,8 +101,8 @@ static void	recursive_draw(
 	index_curr = 0;
 	while (index_curr < len * 4)
 	{
-		incr_screen = increment_map[index_curr / len];
-		index_curr += render_edge(data, in_screen, incr_screen);
+		vec2d_copy_d(&incr_screen, increment_map[index_curr / len]);
+		index_curr += render_edge(data, in_screen, incr_screen, len);
 		if (index_curr == index_prev || index_curr % len != 0)
 		{
 			if (len <= RECTANGLE_MIN_SIZE)
@@ -109,7 +111,7 @@ static void	recursive_draw(
 				return (render_children(data, origin, len));
 		}
 		index_prev = index_curr;
-		vec2d_combine_d(&in_screen, incr_screen);
+		vec2d_combine_d(&in_screen, *vec2d_mult_d(&incr_screen, len));
 	}
 	render_fill(data, origin, len, *(int *)get_pixel(data, in_screen));
 }

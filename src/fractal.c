@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:52:56 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 13:12:03 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:20:02 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int arc, const char *argv[])
 	if (data == NULL)
 		return (EXIT_FAILURE);
 	setup_hooks(data);
-	setup_fractal(data, RANDOM);
+	setup_fractal(data, TEST);
 	mlx_loop(data->mlx);
 	cleanup(data);
 	return (EXIT_SUCCESS);

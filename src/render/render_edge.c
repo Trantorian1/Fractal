@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:49:55 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 12:42:05 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:10:18 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	increment(
 int32_t	render_edge(
 	t_s_data *data,
 	t_s_vec2d_d start,
-	t_s_vec2d_d incr_screen)
+	t_s_vec2d_d incr_screen,
+	int32_t len)
 {
 	t_s_vec2d_d	in_screen;
 	t_s_vec2d_d	in_fractal;
@@ -71,8 +72,7 @@ int32_t	render_edge(
 	bail_prev = calculate_bail(data, in_fractal, in_screen);
 	increment(&in_screen, incr_screen, &in_fractal, incr_fractal);
 	bail_curr = calculate_bail(data, in_fractal, in_screen);
-	while (bail_prev == bail_curr
-		&& drawn(start, in_screen) < data->view_screen.width)
+	while (bail_prev == bail_curr && drawn(start, in_screen) < len)
 	{
 		increment(&in_screen, incr_screen, &in_fractal, incr_fractal);
 		bail_prev = bail_curr;

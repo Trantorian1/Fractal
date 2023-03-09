@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:51:30 by                   #+#    #+#             */
-/*   Updated: 2023/03/09 12:43:02 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:10:42 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 int32_t	render_edge(
 	t_s_data *data,
 	t_s_vec2d_d start,
-	t_s_vec2d_d incr_screen);
+	t_s_vec2d_d incr_screen,
+	int32_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 12:21:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 12:49:16 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:08:13 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	render_fill(
 {
 	t_s_vec2d_d	in_screen;
 
-	vec2d_copy_d(&in_screen, origin);
+	in_screen.x = origin.x;
 	while ((in_screen.x - origin.x) < len)
 	{
+		in_screen.y = origin.y;
 		while ((in_screen.y - origin.y) < len)
 		{
 			paint(data, in_screen, color);
