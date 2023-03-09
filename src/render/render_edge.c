@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:49:55 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 15:23:27 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:19:17 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "render_edge.h"
 
 #include "paint.h"
+#include "to_fractal_space.h"
 
 static int32_t	drawn(t_s_vec2d_d start, t_s_vec2d_d end)
 {
@@ -28,14 +29,6 @@ static int32_t	drawn(t_s_vec2d_d start, t_s_vec2d_d end)
 	dy = abs((int32_t)(end.y - start.y));
 	return (max(dx, dy));
 }	
-
-static t_s_vec2d_d	*to_fractal_space(
-	t_s_vec2d_d *dest,
-	t_s_vec2d_d source,
-	double ratio)
-{
-	return (vec2d_mult_d(vec2d_copy_d(dest, source), ratio));
-}
 
 static int32_t	calculate_bail(
 	t_s_data *data,
@@ -86,8 +79,8 @@ int32_t	render_edge(
 	int32_t		bail_curr;
 
 	vec2d_copy_d(&in_screen, start);
-	to_fractal_space(&incr_fractal, incr_screen, data->ratio);
-	to_fractal_space(&in_fractal, start, data->ratio);
+	to_fractal_space(data, &incr_fractal, incr_screen, data->ratio);
+	to_fractal_space(data, &in_fractal, start, data->ratio);
 	bail_prev = calculate_bail(data, in_fractal, in_screen);
 	increment(&in_screen, incr_screen, &in_fractal, incr_fractal);
 	bail_curr = calculate_bail(data, in_fractal, in_screen);
