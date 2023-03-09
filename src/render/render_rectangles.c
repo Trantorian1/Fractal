@@ -6,9 +6,14 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 14:17:18 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 15:19:46 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file render_rectangles.c
+ * @brief Rendering optimisation functions.
+ */
 
 #include "render_rectangles.h"
 
@@ -27,6 +32,18 @@ static void	recursive_draw(
 				t_s_vec2d_d origin,
 				int32_t len);
 
+/**
+ * @brief Fills rectangle if rectangle checkin was not able to optimise
+ * rendering at the given coordinates.
+ *
+ * If rectangle checking reaches minimal rectangle size and still encounters a
+ * discontinuity in bail along the edge of the rectangle, renders every pixel in
+ * the rectangle individually.
+ *
+ * @param data (t_s_data *): global graphics context.
+ * @param origin (t_s_vec2d_d *): rectangle origin.
+ * @param len (int32_t): rectangle length.
+ */
 static void	handle_fail(
 	t_s_data *data,
 	t_s_vec2d_d origin,
@@ -57,6 +74,14 @@ static void	handle_fail(
 	}
 }
 
+/**
+ * @brief Recursively calls rectangle checking on all sub-rectangles in a
+ * rectangle after a discontinuity in bail along the edge has been detected.
+ *
+ * @param data (t_s_data *): global graphics context.
+ * @param origin (t_s_vec2d_d *): parent rectangle origin.
+ * @param len (int32_t): parent rectangle length.
+ */
 static void	render_children(
 	t_s_data *data,
 	t_s_vec2d_d origin,
@@ -78,7 +103,11 @@ static void	render_children(
  * @brief Recursively tries to fill smaller and smaller rectangles.
  *
  * Rectangles are continuous zones with the same bail, where only the edges
- * need to be calcualted to infer the color of the interior.
+ * need to be calcualted to infer the color of the interior. If a pixel with a
+ * different bail is detected, recursively seperates rectangle into 4
+ * sub-rectangles, checking each one for continuous bail. Process stops if all
+ * values along the edge of a rectangle are continuous or if a minimal rectangle
+ * size has been reached.
  *
  * @param data (t_s_data *): screen data.
  * @param origin (t_s_vec2d_d *): starting coordinates in screen space.
@@ -116,6 +145,16 @@ static void	recursive_draw(
 	render_fill(data, origin, len, *(int *)get_pixel(data, in_screen));
 }
 
+/**
+ * @brief Optimisation pass in rendering, fill in continuous areas with the
+ * same bailout value.
+ *
+ * Tries to recursively draw rectangles of diminishing sizes across the screen
+ * by checking for zones of equal bailout, filling them without any extra
+ * calculations.
+ *
+ * @param data (t_s_data *): global graphics context.
+ */
 void	render_rectangles(t_s_data *data)
 {
 	t_s_vec2d_d	origin;

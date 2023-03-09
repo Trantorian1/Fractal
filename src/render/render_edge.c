@@ -6,9 +6,14 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:49:55 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 14:10:18 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 15:23:27 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file render_edge.c
+ * @brief Edge rendering functions in use in render_rectangles. 
+ */
 
 #include "render_edge.h"
 
@@ -54,6 +59,20 @@ static void	increment(
 	vec2d_combine_d(in_fractal, incr_fractal);
 }
 
+/**
+ * @brief Renders the edge of a rectangle accoring to the fractal series
+ * specified in graphics context.
+ *
+ * Keeps rendering pixels as long as they share the same neighbouring bail. As
+ * soon as a discontinuity is detected, exits function.
+ *
+ * @param data (t_s_data *): global graphics context.
+ * @param start (t_s_vec2d_d): edge origin.
+ * @param incr_screen (t_s_vec2d_d): screen-space pixel increment.
+ * @param len (int32_t): edge length.
+ * @return (int32_t): number of pixels rendered before a discontinuity in bail
+ * was detected.
+ */
 int32_t	render_edge(
 	t_s_data *data,
 	t_s_vec2d_d start,

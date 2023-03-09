@@ -6,9 +6,14 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:33:40 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 12:54:05 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 15:34:15 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file get_pixel.c
+ * @brief Pixel retrieval functions.
+ */
 
 #include "get_pixel.h"
 
@@ -41,6 +46,13 @@ static int32_t	to_index(t_s_vec2d_d vect, int32_t size_line, int32_t bpp)
 	return ((int32_t)vect.y * size_line + (int32_t)vect.x * (bpp / 8));
 }
 
+/**
+ * @brief Gets the address to a pixel in screen-space.
+ *
+ * @param data (t_s_data *): global graphics context.
+ * @param vect (t_s_vec2d_d *): positon of the pixel in screen-space.
+ * @return (char *): pixel address.
+ */
 char	*get_pixel(t_s_data *data, t_s_vec2d_d vect)
 {
 	static t_s_data_image	*data_image = NULL;

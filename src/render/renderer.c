@@ -6,9 +6,14 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:00:32 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/08 14:51:47 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/09 15:07:20 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file renderer.c
+ * @brief Rendering functions.
+ */
 
 #include "renderer.h"
 
@@ -31,6 +36,12 @@ int	renderer(t_s_data *data)
 }
 #else
 
+/**
+ * @brief Main fractal renderer. Handles image generation and display.
+ *
+ * @param data (t_s_data *): global graphics context.
+ * @return (int): error code: 0 if no error, 1 otherwise.
+ */
 int	renderer(t_s_data *data)
 {
 	if (data->main_window == NULL)

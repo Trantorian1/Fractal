@@ -5,10 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 14:52:56 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 14:20:02 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/09 14:50:41 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/09 14:50:42 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file fractal.c
+ * @brief Entry point for fractal display
+ *
+ * Handles setting up graphics context, fractal data and event hooks used
+ * througout the rest of the program.
+ */
 
 #include "setup_mlx.h"
 #include "setup_hooks.h"
