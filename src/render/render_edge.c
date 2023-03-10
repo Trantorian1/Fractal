@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:49:55 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 18:18:30 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 12:14:41 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	increment(
 	t_s_vec2d_d *in_fractal,
 	t_s_vec2d_d incr_fractal)
 {
-	vec2d_combine_d(in_screen, incr_screen);
-	vec2d_combine_d(in_fractal, incr_fractal);
+	vec2d_add_d(in_screen, incr_screen);
+	vec2d_add_d(in_fractal, incr_fractal);
 }
 
 static int32_t	drawn(t_s_vec2d_d start, t_s_vec2d_d end)
@@ -53,10 +53,10 @@ static int32_t	edge_bail(
 	int32_t		bail_edge;
 
 	to_fractal_space(data, &in_fractal, start_screen, data->ratio);
-	vec2d_mult_d(&incr_screen, len);
-	vec2d_combine_d(&start_screen, incr_screen);
+	vec2d_scale_d(&incr_screen, len);
+	vec2d_add_d(&start_screen, incr_screen);
 	to_fractal_increment(data, &incr_fractal, incr_screen);
-	vec2d_combine_d(&in_fractal, incr_fractal);
+	vec2d_add_d(&in_fractal, incr_fractal);
 	bail_edge = calculate_bail(data, in_fractal, start_screen);
 	if (bail_edge == 0)
 		return (0xfffffff);

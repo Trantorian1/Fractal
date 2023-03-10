@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 19:25:20 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 12:15:04 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static bool	contains_fractal(
 {
 	t_s_vec2d_d	max;
 	t_s_view	*view;
+	double		height;
 	bool		in_x;
 	bool		in_y;
 
@@ -119,10 +120,11 @@ static bool	contains_fractal(
 	min.y = -min.y;
 	max.y = -max.y;
 	view = &data->view_fractal;
-	in_x = ((min.x <= -3)
-			&& (max.x >= 3));
-	in_y = ((min.y <= -3)
-			&& (max.y >= 3));
+	height = data->view_screen.height * data->ratio;
+	in_x = ((min.x <= view->origin.x)
+			&& (max.x >= view->origin.x + view->width));
+	in_y = ((min.y <= -view->origin.y)
+			&& (max.y >= height - view->origin.y));
 	return (in_x && in_y);
 }
 
@@ -169,7 +171,7 @@ static void	recursive_draw(
 				return (render_children(data, origin, len));
 		}
 		index_prev = index_curr;
-		vec2d_combine_d(&in_screen, *vec2d_mult_d(&incr_screen, len));
+		vec2d_add_d(&in_screen, *vec2d_scale_d(&incr_screen, len));
 	}
 	render_fill(data, origin, len, *(int *)get_pixel(data, in_screen));
 }
