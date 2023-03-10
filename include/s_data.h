@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:30 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 16:04:56 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 11:49:01 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 typedef struct s_data
 {
 	double				ratio;
+	double				scale;
+	double				scale_factor;
 	t_s_view			view_screen;
 	t_s_view			view_fractal;
 	struct s_fractal	*fractal;

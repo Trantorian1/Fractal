@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:41:43 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 16:06:22 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 11:49:23 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ void	setup_fractal(t_s_data *data, t_e_fractal type)
 		return ;
 	data->fractal = generators[type]();
 	setup_view_fractal(data);
+	data->scale = 1.0;
+	data->scale_factor = 0.05;
 }

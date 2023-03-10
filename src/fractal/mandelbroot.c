@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:13:07 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 19:33:28 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 11:23:48 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static int32_t	mandelbroot_hsl(int32_t bail)
 	double		v;
 	LCHColor	lch;	
 
+	if (bail >= 1000.0)
+		return (0x0);
 	s = bail / 1000.0;
 	v = 1.0 - pow(cos(M_PI * s), 2.0);
 	lch.L = 75 - (75 * v);
@@ -79,12 +81,11 @@ static int32_t	mandelbroot_hsl(int32_t bail)
 t_s_fractal	*mandelbroot(void)
 {
 	static t_s_fractal	mandelbroot;
-	static t_s_vec2d_d	origin = {.x = -3, .y = 3};
+	static t_s_vec2d_d	origin = {.x = -1, .y = 1};
 
 	mandelbroot.series = &mandelbroot_series;
 	mandelbroot.color = &mandelbroot_hsl;
-	mandelbroot.view_initial.width = 6;
-	mandelbroot.view_initial.height = 6;
+	mandelbroot.view_initial.width = 1;
 	mandelbroot.max_iter = 1000;
 	mandelbroot.bail_bound = 4;
 	vec2d_copy_d(&mandelbroot.view_initial.origin, origin);
