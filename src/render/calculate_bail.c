@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:11:56 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 18:22:35 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 16:44:26 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int32_t	calculate_bail(
 {
 	int32_t	bail;
 
-	bail = data->fractal->color(data->fractal->series(data, in_fractal));
+	bail = data->fractal->color(data, data->fractal->series(data, in_fractal));
 	paint(data, in_screen, bail);
 	return (bail);
 }

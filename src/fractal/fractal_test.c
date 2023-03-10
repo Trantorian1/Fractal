@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:25:00 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 13:19:06 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 16:41:50 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 #include "libft.h"
 #include <stdint.h>
 
-static int32_t	fractal_series(t_s_data *data, t_s_vec2d_d vect)
+static double	fractal_series(t_s_data *data, t_s_vec2d_d vect)
 {
 	(void)data;
 	(void)vect;
 	return (0xff);
 }
 
-static int32_t	fractal_color(int32_t bail)
+static int32_t	fractal_color(t_s_data *data, double iter)
 {
-	(void)bail;
-	return (bail % 256);
+	(void)data;
+	return ((int)iter % 256);
 }
 
 t_s_fractal	*fractal_test(void)

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:52:42 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 13:19:18 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 16:42:13 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,16 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-static int32_t	fractal_color(int32_t bail)
+static double	fractal_series(t_s_data *data, t_s_vec2d_d vect)
 {
-	(void)bail;
-	return (bail % 256);
+	(void)vect;
+	return (rand() % data->fractal->max_iter);
 }
 
-static int32_t	fractal_series(t_s_data *data, t_s_vec2d_d vect)
+static int32_t	fractal_color(t_s_data *data, double bail)
 {
 	(void)data;
-	(void)vect;
-	return (rand() % 1000);
+	return ((int)bail % 256);
 }
 
 t_s_fractal	*fractal_random(void)
@@ -38,6 +37,7 @@ t_s_fractal	*fractal_random(void)
 	fractal.series = &fractal_series;
 	fractal.color = &fractal_color;
 	fractal.view_initial.width = 1024;
+	fractal.max_iter = 1000;
 	vec2d_copy_d(&fractal.view_initial.origin, origin);
 	return (&fractal);
 }

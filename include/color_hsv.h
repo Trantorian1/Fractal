@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zoom.h                                             :+:      :+:    :+:   */
+/*   color_hsv.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 15:17:39 by                   #+#    #+#             */
-/*   Updated: 2023/03/10 15:17:39 by                  ###   ########.fr       */
+/*   Created: 2023/03/10 20:59:39 by                   #+#    #+#             */
+/*   Updated: 2023/03/10 20:59:39 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOOM_H
-# define ZOOM_H
+#ifndef COLOR_HSV_H
+# define COLOR_HSV_H
 
+# include <stdint.h>
 # include "s_data.h"
 
-void	zoom(t_s_data *data, t_s_vec2d_d *mouse);
+int32_t	color_hsv(t_s_data *data, double iter);
 
 #endif

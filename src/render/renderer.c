@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:00:32 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 15:07:20 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 12:55:48 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int	renderer(t_s_data *data)
 {
 	if (data->main_window == NULL)
 		return (EXIT_FAILURE);
-	render_rectangles(data);
+	if (data->trigger_render == true)
+	{
+		render_rectangles(data);
+		data->trigger_render = false;
+	}
 	mlx_put_image_to_window(data->mlx, data->main_window, data->canvas, 0, 0);
 	return (EXIT_SUCCESS);
 }

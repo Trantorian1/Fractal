@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_mouse_scrolldown.c                           :+:      :+:    :+:   */
+/*   to_rgb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 12:33:52 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 13:36:23 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/10 17:15:01 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/10 17:26:38 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "event_mouse_scrolldown.h"
+#include "to_rgb.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
-int	event_mouse_scrolldown(int32_t button, int32_t x, int32_t y, t_s_data *data)
+int32_t	to_rgb(int32_t r, int32_t g, int32_t b)
 {
-	(void)button;
-	(void)x;
-	(void)y;
-	(void)data;
-	printf("Scrolling Down!\n");
-	return (EXIT_SUCCESS);
+	return (r << 16 | g << 8 | b);
 }

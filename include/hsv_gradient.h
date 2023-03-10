@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zoom.h                                             :+:      :+:    :+:   */
+/*   hsv_gradient.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 15:17:39 by                   #+#    #+#             */
-/*   Updated: 2023/03/10 15:17:39 by                  ###   ########.fr       */
+/*   Created: 2023/03/10 20:52:36 by                   #+#    #+#             */
+/*   Updated: 2023/03/10 20:52:36 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOOM_H
-# define ZOOM_H
+#ifndef HSV_GRADIENT_H
+# define HSV_GRADIENT_H
 
-# include "s_data.h"
+# include <stdint.h>
 
-void	zoom(t_s_data *data, t_s_vec2d_d *mouse);
+int32_t	*hsv_gradient(uint32_t density, double h0);
 
 #endif

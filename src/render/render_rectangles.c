@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 12:15:04 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/10 16:41:29 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	handle_fail(
 {
 	t_s_vec2d_d	in_screen;
 	t_s_vec2d_d	in_fractal;
-	int32_t		bailout;
+	double		bailout;
 	int32_t		color;
 
 	in_screen.x = origin.x;
@@ -66,7 +66,7 @@ static void	handle_fail(
 		while ((in_screen.y - origin.y) < len)
 		{
 			bailout = data->fractal->series(data, in_fractal);
-			color = data->fractal->color(bailout);
+			color = data->fractal->color(data, bailout);
 			paint(data, in_screen, color);
 			in_fractal.y -= data->ratio;
 			in_screen.y++;
