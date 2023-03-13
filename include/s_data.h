@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:30 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 16:00:03 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:30:17 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define S_DATA_H
 
 # include "libft.h"
+#include "e_states.h"
 # include "s_view.h"
 # include "s_bounds.h"
 # include <stdint.h>
@@ -21,16 +22,37 @@
 typedef struct s_data
 {
 	bool				trigger_render;
-	double				scale_factor;
 	double				view_ratio;
 	double				view_padding;
-	t_s_view			*view_screen;
-	t_s_view			*view_fractal;
-	struct s_fractal	*fractal;
 	void				*mlx;
 	void				*main_window;
 	void				*canvas;
+	struct s_zoom		*zoom;
+	struct s_panning	*panning;
+	struct s_keys		*keys;
+	t_s_view			*view_screen;
+	t_s_view			*view_fractal;
+	struct s_fractal	*fractal;
 }	t_s_data;
+
+typedef struct s_zoom
+{
+	double	zoom_factor;
+	double	zoom_scale;
+	int32_t	zoom_count;
+}	t_s_zoom;
+
+typedef struct s_panning
+{
+	bool		is_panning;
+	t_s_vec2d_d	last_pos;
+}	t_s_panning;
+
+typedef struct s_keys
+{
+	int32_t	*pressed;
+	int32_t	*released;
+}	t_s_keys;
 
 typedef struct s_fractal
 {

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:49:19 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 15:36:12 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:04:14 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 #include "event_keypress.h"
 #include "event_do_nothing.h"
 #include "event_mouse_down.h"
+#include "event_mouse_up.h"
+#include "event_mouse_move.h"
 #include "renderer.h"
 #include "mlx.h"
 #include <X11/X.h>
-#include "stdlib.h"
 
 /**
  * @brief Registers all event hooks used throughout the application.
@@ -48,4 +49,6 @@ void	setup_hooks(t_s_data *data)
 	mlx_hook(window, DestroyNotify, NoEventMask, &event_destroy, data);
 	mlx_hook(window, KeyPress, KeyPressMask, &event_keypress, data);
 	mlx_mouse_hook(data->main_window, &event_mouse_down, data);
+	mlx_hook(window, ButtonRelease, ButtonReleaseMask, &event_mouse_up, data);
+	mlx_hook(window, MotionNotify, Button1MotionMask, &event_mouse_move, data);
 }
