@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:15:49 by                   #+#    #+#             */
-/*   Updated: 2023/03/09 16:16:28 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:56:31 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 t_s_vec2d_d	*to_fractal_space(
 	t_s_data *data,
 	t_s_vec2d_d *dest,
-	t_s_vec2d_d source,
+	t_s_vec2d_d *source,
 	double ratio);
 
 #endif

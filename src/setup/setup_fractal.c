@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:41:43 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 15:01:03 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:04:32 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	center_fractal(t_s_data *data, t_s_fractal *fractal)
 	fractal->view_initial = ft_malloc(sizeof(*fractal->view_initial));
 	fractal->view_initial->width = in_fractal.x;
 	fractal->view_initial->height = in_fractal.y;
-	vec2d_copy_d(&fractal->view_initial->origin, centered);
+	vec2d_copy_d(&fractal->view_initial->origin, &centered);
 }
 
 static void	setup_view_fractal(t_s_data *data, t_s_fractal *fractal)

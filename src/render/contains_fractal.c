@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contains_rectangle.c                               :+:      :+:    :+:   */
+/*   contains_fractal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 13:49:31 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 15:34:12 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:57:10 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "contains_rectangle.h"
+#include "contains_fractal.h"
 
 #include "to_fractal_space.h"
 #include "libft.h"
 
-bool	contains_fractal(t_s_data *data, t_s_vec2d_d min, int32_t len)
+bool	contains_fractal(t_s_data *data, t_s_vec2d_d *origin, int32_t len)
 {
+	t_s_vec2d_d	min;
 	t_s_vec2d_d	max;
 	t_s_bounds	*bounds;
 	bool		in_x;
 	bool		in_y;
 
-	vec2d_copy_d(&max, min);
+	vec2d_copy_d(&min, origin);
+	vec2d_copy_d(&max, origin);
 	max.x += len;
 	max.y += len;
-	to_fractal_space(data, &min, min, data->view_ratio);
-	to_fractal_space(data, &max, max, data->view_ratio);
+	to_fractal_space(data, &min, &min, data->view_ratio);
+	to_fractal_space(data, &max, &max, data->view_ratio);
 	min.y = -min.y;
 	max.y = -max.y;
 	bounds = data->fractal->bounds;

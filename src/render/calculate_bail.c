@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:11:56 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 16:44:26 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:59:37 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
  */
 int32_t	calculate_bail(
 	t_s_data *data,
-	t_s_vec2d_d in_fractal,
-	t_s_vec2d_d in_screen)
+	t_s_vec2d_d *in_fractal,
+	t_s_vec2d_d *in_screen)
 {
 	int32_t	bail;
 

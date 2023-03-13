@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:18:11 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 15:38:09 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:53:00 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
  * called as part of renderer. This ensures that all pixels are displayed at the
  * same time and that only one screem refresh is needed.
  */
-void	paint(t_s_data *data, t_s_vec2d_d vect, int32_t rgb)
+void	paint(t_s_data *data, t_s_vec2d_d *vect, int32_t rgb)
 {
 	if (data == NULL)
 		return ;

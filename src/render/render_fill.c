@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 12:21:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 15:44:44 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:52:30 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@
  */
 void	render_fill(
 	t_s_data *data,
-	t_s_vec2d_d origin,
+	t_s_vec2d_d *origin,
 	int32_t len,
 	int32_t color)
 {
 	t_s_vec2d_d	in_screen;
 
-	in_screen.x = origin.x;
-	while ((in_screen.x - origin.x) < len)
+	in_screen.x = origin->x;
+	while ((in_screen.x - origin->x) < len)
 	{
-		in_screen.y = origin.y;
-		while ((in_screen.y - origin.y) < len)
+		in_screen.y = origin->y;
+		while ((in_screen.y - origin->y) < len)
 		{
-			paint(data, in_screen, color);
+			paint(data, &in_screen, color);
 			in_screen.y++;
 		}
 		in_screen.x++;

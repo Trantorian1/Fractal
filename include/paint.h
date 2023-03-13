@@ -5,18 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 20:09:50 by                   #+#    #+#             */
-/*   Updated: 2023/03/09 11:34:40 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/13 15:53:14 by                   #+#    #+#             */
+/*   Updated: 2023/03/13 15:53:14 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAINT_H
 # define PAINT_H
 
-# include "s_data.h"
-# include "libft.h"
 # include <stdint.h>
+# include "s_data.h"
 
-void	paint(t_s_data *data, t_s_vec2d_d vect, int32_t rgb);
+void	paint(t_s_data *data, t_s_vec2d_d *vect, int32_t rgb);
 
 #endif

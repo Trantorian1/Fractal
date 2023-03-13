@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:12:34 by                   #+#    #+#             */
-/*   Updated: 2023/03/09 18:23:04 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:59:52 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int32_t	calculate_bail(
 	t_s_data *data,
-	t_s_vec2d_d in_fractal,
-	t_s_vec2d_d in_screen);
+	t_s_vec2d_d *in_fractal,
+	t_s_vec2d_d *in_screen);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:13:07 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 15:22:56 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:00:57 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdio.h>
 
 static bool	has_bailed(
-	t_s_vec2d_d squared,
+	t_s_vec2d_d *squared,
 	int32_t index,
 	double bail_bound,
 	const t_s_fractal *mandelbroot)
@@ -28,12 +28,12 @@ static bool	has_bailed(
 	bool	reached_bail;
 	bool	reached_iter;
 
-	reached_bail = squared.x + squared.y > bail_bound;
+	reached_bail = squared->x + squared->y > bail_bound;
 	reached_iter = index >= mandelbroot->max_iter;
 	return (reached_bail || reached_iter);
 }
 
-static double	escape_time(t_s_data *data, t_s_vec2d_d vect)
+static double	escape_time(t_s_data *data, t_s_vec2d_d *vect)
 {
 	int32_t				iter;
 	double				x;
@@ -46,12 +46,12 @@ static double	escape_time(t_s_data *data, t_s_vec2d_d vect)
 	y = 0;
 	squared.x = 0;
 	squared.y = 0;
-	if (vect.x * vect.x + vect.y * vect.y > mandelbroot->bail_bound)
+	if (vect->x * vect->x + vect->y * vect->y > mandelbroot->bail_bound)
 		return (1);
-	while (!has_bailed(squared, iter, mandelbroot->bail_bound, mandelbroot))
+	while (!has_bailed(&squared, iter, mandelbroot->bail_bound, mandelbroot))
 	{
-		y = (x + x) * y + vect.y;
-		x = squared.x - squared.y + vect.x;
+		y = (x + x) * y + vect->y;
+		x = squared.x - squared.y + vect->x;
 		squared.x = x * x;
 		squared.y = y * y;
 		iter++;
@@ -61,12 +61,12 @@ static double	escape_time(t_s_data *data, t_s_vec2d_d vect)
 
 static void	mandelbroot_bounds(t_s_fractal *mandelbroot)
 {
-	static t_s_bounds			bounds;
-	static const t_s_vec2d_d	origin = {.x = -2.0, .y = 1.12};
+	static t_s_bounds	bounds;
+	static t_s_vec2d_d	origin = {.x = -2.0, .y = 1.12};
 
 	bounds.width = 2.47;
 	bounds.height = 2.24;
-	vec2d_copy_d(&bounds.origin, origin);
+	vec2d_copy_d(&bounds.origin, &origin);
 	mandelbroot->bounds = &bounds;
 }
 

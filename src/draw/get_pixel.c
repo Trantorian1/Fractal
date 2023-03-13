@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:33:40 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/09 15:34:15 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:54:05 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static t_s_data_image	*get_image_data(t_s_data *data)
 	return (data_image);
 }
 
-static int32_t	to_index(t_s_vec2d_d vect, int32_t size_line, int32_t bpp)
+static int32_t	to_index(t_s_vec2d_d *vect, int32_t size_line, int32_t bpp)
 {
-	return ((int32_t)vect.y * size_line + (int32_t)vect.x * (bpp / 8));
+	return ((int32_t)vect->y * size_line + (int32_t)vect->x * (bpp / 8));
 }
 
 /**
@@ -53,7 +53,7 @@ static int32_t	to_index(t_s_vec2d_d vect, int32_t size_line, int32_t bpp)
  * @param vect (t_s_vec2d_d *): positon of the pixel in screen-space.
  * @return (char *): pixel address.
  */
-char	*get_pixel(t_s_data *data, t_s_vec2d_d vect)
+char	*get_pixel(t_s_data *data, t_s_vec2d_d *vect)
 {
 	static t_s_data_image	*data_image = NULL;
 	int32_t					index;

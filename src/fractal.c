@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:50:41 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 15:30:00 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:26:08 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #endif
 
 #ifndef HEIGHT
-# define HEIGHT 1024
+# define HEIGHT 512
 #endif
 
 #define TITLE "Fractal"
