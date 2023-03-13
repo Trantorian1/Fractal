@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:13:07 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 21:03:04 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:22:56 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	has_bailed(
 	return (reached_bail || reached_iter);
 }
 
-static double	mandelbroot_escape_time(t_s_data *data, t_s_vec2d_d vect)
+static double	escape_time(t_s_data *data, t_s_vec2d_d vect)
 {
 	int32_t				iter;
 	double				x;
@@ -59,16 +59,25 @@ static double	mandelbroot_escape_time(t_s_data *data, t_s_vec2d_d vect)
 	return (iter);
 }
 
+static void	mandelbroot_bounds(t_s_fractal *mandelbroot)
+{
+	static t_s_bounds			bounds;
+	static const t_s_vec2d_d	origin = {.x = -2.0, .y = 1.12};
+
+	bounds.width = 2.47;
+	bounds.height = 2.24;
+	vec2d_copy_d(&bounds.origin, origin);
+	mandelbroot->bounds = &bounds;
+}
+
 t_s_fractal	*mandelbroot(void)
 {
-	static t_s_fractal	mandelbroot;
-	static t_s_vec2d_d	origin = {.x = -3, .y = 3};
+	static t_s_fractal			mandelbroot;
 
-	mandelbroot.series = &mandelbroot_escape_time;
+	mandelbroot.series = &escape_time;
 	mandelbroot.color = &color_hsv;
-	mandelbroot.view_initial.width = 6;
 	mandelbroot.max_iter = 500;
 	mandelbroot.bail_bound = 4;
-	vec2d_copy_d(&mandelbroot.view_initial.origin, origin);
+	mandelbroot_bounds(&mandelbroot);
 	return (&mandelbroot);
 }

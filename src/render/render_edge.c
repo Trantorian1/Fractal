@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:49:55 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 12:14:41 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 13:56:19 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 
 #include "render_edge.h"
 
+#include "is_in_screen.h"
 #include "paint.h"
 #include "to_fractal_space.h"
 #include "to_fractal_increment.h"
 #include "calculate_bail.h"
+#include <stdio.h>
 
 static void	increment(
 	t_s_vec2d_d *in_screen,
@@ -40,27 +42,6 @@ static int32_t	drawn(t_s_vec2d_d start, t_s_vec2d_d end)
 	dx = abs((int32_t)(end.x - start.x));
 	dy = abs((int32_t)(end.y - start.y));
 	return (max(dx, dy));
-}
-
-static int32_t	edge_bail(
-	t_s_data *data,
-	t_s_vec2d_d start_screen,
-	t_s_vec2d_d incr_screen,
-	int32_t len)
-{
-	t_s_vec2d_d	in_fractal;
-	t_s_vec2d_d	incr_fractal;
-	int32_t		bail_edge;
-
-	to_fractal_space(data, &in_fractal, start_screen, data->ratio);
-	vec2d_scale_d(&incr_screen, len);
-	vec2d_add_d(&start_screen, incr_screen);
-	to_fractal_increment(data, &incr_fractal, incr_screen);
-	vec2d_add_d(&in_fractal, incr_fractal);
-	bail_edge = calculate_bail(data, in_fractal, start_screen);
-	if (bail_edge == 0)
-		return (0xfffffff);
-	return (bail_edge);
 }
 
 /**
@@ -91,13 +72,13 @@ int32_t	render_edge(
 
 	vec2d_copy_d(&in_screen, start_screen);
 	to_fractal_increment(data, &incr_fractal, incr_screen);
-	to_fractal_space(data, &in_fractal, start_screen, data->ratio);
+	to_fractal_space(data, &in_fractal, start_screen, data->view_ratio);
 	bail_prev = calculate_bail(data, in_fractal, in_screen);
-	if (bail_prev == edge_bail(data, start_screen, incr_screen, len))
-		return (len);
 	increment(&in_screen, incr_screen, &in_fractal, incr_fractal);
 	bail_curr = calculate_bail(data, in_fractal, in_screen);
-	while (bail_prev == bail_curr && drawn(start_screen, in_screen) < len)
+	while (is_in_screen(data, &in_screen)
+		&& bail_prev == bail_curr
+		&& drawn(start_screen, in_screen) < len)
 	{
 		increment(&in_screen, incr_screen, &in_fractal, incr_fractal);
 		bail_prev = bail_curr;

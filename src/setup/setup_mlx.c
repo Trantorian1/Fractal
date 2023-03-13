@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:42:36 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 11:46:04 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 14:24:10 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ static void	*error_handle(t_s_data *data)
 
 static void	setup_view_screen(t_s_data *data, int16_t width, int16_t height)
 {
-	data->view_screen.width = width;
-	data->view_screen.height = height;
-	data->view_screen.origin.x = 0;
-	data->view_screen.origin.y = 0;
+	static t_s_view	view_screen;
+
+	view_screen.width = width;
+	view_screen.height = height;
+	view_screen.origin.x = 0;
+	view_screen.origin.y = 0;
+	data->view_padding = 50;
+	data->view_screen = &view_screen;
 }
 
 /**

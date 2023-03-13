@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:46:16 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 12:15:26 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 13:56:42 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_s_vec2d_d	*to_fractal_increment(
 	t_s_vec2d_d incr_screen)
 {
 	vec2d_copy_d(incr_fractal, incr_screen);
-	vec2d_scale_d(incr_fractal, data->ratio);
+	vec2d_scale_d(incr_fractal, data->view_ratio);
 	incr_fractal->y = -incr_fractal->y;
 	return (incr_fractal);
 }

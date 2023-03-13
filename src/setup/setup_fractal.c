@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:41:43 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 13:39:16 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:01:03 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,39 @@
 
 typedef t_s_fractal	*(*t_generator)(void);
 
-static void	setup_view_fractal(t_s_data *data)
+static void	center_fractal(t_s_data *data, t_s_fractal *fractal)
+{
+	t_s_bounds	*bounds;
+	t_s_vec2d_d	view;
+	double		ratio;
+	t_s_vec2d_d	in_fractal;
+	t_s_vec2d_d	centered;
+
+	bounds = fractal->bounds;
+	view.x = data->view_screen->width - 2 * data->view_padding;
+	view.y = view.x * bounds->height / bounds->width;
+	ratio = bounds->width / view.x;
+	in_fractal.x = data->view_screen->width * ratio;
+	in_fractal.y = data->view_screen->height * ratio;
+	centered.x = bounds->origin.x - (in_fractal.x - bounds->width) / 2;
+	centered.y = bounds->origin.y + (in_fractal.y - bounds->height) / 2;
+	fractal->view_initial = ft_malloc(sizeof(*fractal->view_initial));
+	fractal->view_initial->width = in_fractal.x;
+	fractal->view_initial->height = in_fractal.y;
+	vec2d_copy_d(&fractal->view_initial->origin, centered);
+}
+
+static void	setup_view_fractal(t_s_data *data, t_s_fractal *fractal)
 {
 	double	ratio;
 
-	data->view_fractal.width = data->fractal->view_initial.width;
-	ratio = data->view_fractal.width / data->view_screen.width;
-	data->view_fractal.height = data->fractal->view_initial.height * ratio;
-	data->view_fractal.origin.x = data->fractal->view_initial.origin.x;
-	data->view_fractal.origin.y = data->fractal->view_initial.origin.y;
-	data->ratio = ratio;
+	data->view_fractal = ft_malloc(sizeof(*data->view_fractal));
+	data->view_fractal->width = fractal->view_initial->width;
+	ratio = data->view_fractal->width / data->view_screen->width;
+	data->view_fractal->height = fractal->view_initial->height * ratio;
+	data->view_fractal->origin.x = fractal->view_initial->origin.x;
+	data->view_fractal->origin.y = fractal->view_initial->origin.y;
+	data->view_ratio = ratio;
 }
 
 /**
@@ -51,17 +74,17 @@ static void	setup_view_fractal(t_s_data *data)
 void	setup_fractal(t_s_data *data, t_e_fractal type)
 {
 	static const t_generator	generators[E_FRACTAL_SIZE] = {
-		&fractal_test,
-		&fractal_random,
+		NULL,
+		NULL,
 		&mandelbroot,
-		&fractal_test
+		NULL
 	};
 
 	if (!data)
 		return ;
 	data->fractal = generators[type]();
-	setup_view_fractal(data);
-	data->scale = 1.0;
+	center_fractal(data, data->fractal);
+	setup_view_fractal(data, data->fractal);
 	data->scale_factor = 0.95;
 	data->trigger_render = true;
 }

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:25:47 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 16:41:29 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:38:10 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 #include "render_rectangles.h"
 
+#include "contains_rectangle.h"
+#include "is_in_screen.h"
 #include "to_fractal_space.h"
 #include "render_edge.h"
 #include "render_fill.h"
@@ -57,21 +59,21 @@ static void	handle_fail(
 	double		bailout;
 	int32_t		color;
 
-	in_screen.x = origin.x;
-	in_fractal.x = origin.x * data->ratio + data->view_fractal.origin.x;
-	while ((in_screen.x - origin.x) < len)
+	vec2d_copy_d(&in_screen, origin);
+	in_fractal.x = origin.x * data->view_ratio + data->view_fractal->origin.x;
+	while (is_in_screen(data, &in_screen) && (in_screen.x - origin.x) < len)
 	{
-		in_screen.y = origin.y;
-		in_fractal.y = -origin.y * data->ratio + data->view_fractal.origin.y;
-		while ((in_screen.y - origin.y) < len)
+		in_fractal.y = -origin.y * data->view_ratio + data->view_fractal->origin.y;
+		while (is_in_screen(data, &in_screen) && (in_screen.y - origin.y) < len)
 		{
 			bailout = data->fractal->series(data, in_fractal);
 			color = data->fractal->color(data, bailout);
 			paint(data, in_screen, color);
-			in_fractal.y -= data->ratio;
+			in_fractal.y -= data->view_ratio;
 			in_screen.y++;
 		}
-		in_fractal.x += data->ratio;
+		in_screen.y = origin.y;
+		in_fractal.x += data->view_ratio;
 		in_screen.x++;
 	}
 }
@@ -92,40 +94,17 @@ static void	render_children(
 {
 	const int32_t	len_child = len / 2;
 
-	recursive_draw(data, origin, len_child);
+	if (is_in_screen(data, &origin))
+		recursive_draw(data, origin, len_child);
 	origin.x += len_child;
-	recursive_draw(data, origin, len_child);
+	if (is_in_screen(data, &origin))
+		recursive_draw(data, origin, len_child);
 	origin.y += len_child;
-	recursive_draw(data, origin, len_child);
+	if (is_in_screen(data, &origin))
+		recursive_draw(data, origin, len_child);
 	origin.x -= len_child;
-	recursive_draw(data, origin, len_child);
-}
-
-static bool	contains_fractal(
-	t_s_data *data,
-	t_s_vec2d_d min,
-	int32_t len)
-{
-	t_s_vec2d_d	max;
-	t_s_view	*view;
-	double		height;
-	bool		in_x;
-	bool		in_y;
-
-	vec2d_copy_d(&max, min);
-	max.x += len;
-	max.y += len;
-	to_fractal_space(data, &min, min, data->ratio);
-	to_fractal_space(data, &max, max, data->ratio);
-	min.y = -min.y;
-	max.y = -max.y;
-	view = &data->view_fractal;
-	height = data->view_screen.height * data->ratio;
-	in_x = ((min.x <= view->origin.x)
-			&& (max.x >= view->origin.x + view->width));
-	in_y = ((min.y <= -view->origin.y)
-			&& (max.y >= height - view->origin.y));
-	return (in_x && in_y);
+	if (is_in_screen(data, &origin))
+		recursive_draw(data, origin, len_child);
 }
 
 /**
@@ -159,7 +138,7 @@ static void	recursive_draw(
 	vec2d_copy_d(&in_screen, origin);
 	index_prev = -1;
 	index_curr = 0;
-	while (index_curr < len * 4)
+	while (is_in_screen(data, &in_screen) && index_curr < len * 4)
 	{
 		vec2d_copy_d(&incr_screen, increment_map[index_curr / len]);
 		index_curr += render_edge(data, in_screen, incr_screen, len);
@@ -193,7 +172,7 @@ void	render_rectangles(t_s_data *data)
 
 	if (data == NULL)
 		return ;
-	origin = data->view_screen.origin;
-	len = (int32_t)data->view_screen.width;
+	origin = data->view_screen->origin;
+	len = ft_closest_power((int32_t)data->view_screen->width, 2);
 	recursive_draw(data, origin, len);
 }

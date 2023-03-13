@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:00:32 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 12:55:48 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:36:36 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,6 @@
 #include "render_rectangles.h"
 #include "mlx.h"
 #include <stdlib.h>
-
-#if 0
-
-int	renderer(t_s_data *data)
-{
-	static t_s_vec2d	origin = {500, 500};
-
-	if (data->main_window == NULL)
-		return (EXIT_FAILURE);
-	draw_circle(data, &origin, 200, 0xFF0000);
-	mlx_put_image_to_window(data->mlx, data->main_window, data->canvas, 0, 0);
-	return (EXIT_SUCCESS);
-}
-#else
 
 /**
  * @brief Main fractal renderer. Handles image generation and display.
@@ -54,5 +40,3 @@ int	renderer(t_s_data *data)
 	mlx_put_image_to_window(data->mlx, data->main_window, data->canvas, 0, 0);
 	return (EXIT_SUCCESS);
 }
-
-#endif
