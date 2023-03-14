@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:30 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 17:30:17 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 09:46:02 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct s_panning
 
 typedef struct s_keys
 {
-	int32_t	*pressed;
-	int32_t	*released;
+	int64_t	pressed;
+	int64_t	released;
+	int32_t	modifiers;
 }	t_s_keys;
 
 typedef struct s_fractal

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 17:26:15 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 17:30:46 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 10:33:11 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,17 @@ static void	setup_panning(t_s_data *data)
 	data->panning->last_pos.y = 0;
 }
 
+static void	setup_keys(t_s_data *data)
+{
+	data->keys = ft_malloc(sizeof(*data->keys));
+	data->keys->pressed = 0x0;
+	data->keys->released = 0x0;
+	data->keys->modifiers = 0x0;
+}
+
 void	setup_capabilities(t_s_data *data)
 {
 	setup_zoom(data);
 	setup_panning(data);
+	setup_keys(data);
 }

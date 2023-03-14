@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_mouse_move.c                                 :+:      :+:    :+:   */
+/*   is_key_alpha.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 17:41:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 18:35:29 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/14 09:09:09 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/14 09:10:19 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "event_mouse_move.h"
+#include "is_key_alpha.h"
 
-#include "panning.h"
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <X11/keysym.h>
 
-int	event_mouse_move(int x, int y, t_s_data *data)
+bool	is_key_alpha(int keysym)
 {
-	if (data->panning->is_panning)
-		panning(x, y, data);
-	return (EXIT_SUCCESS);
+	return (keysym >= XK_A && keysym <= XK_z);
 }

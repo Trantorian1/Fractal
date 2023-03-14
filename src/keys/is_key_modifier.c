@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_mouse_move.c                                 :+:      :+:    :+:   */
+/*   is_key_modifier.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 17:41:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 18:35:29 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/14 09:12:13 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/14 09:13:58 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "event_mouse_move.h"
+#include "is_key_modifier.h"
 
-#include "panning.h"
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <X11/keysym.h>
 
-int	event_mouse_move(int x, int y, t_s_data *data)
+bool	is_key_modifier(int keysym)
 {
-	if (data->panning->is_panning)
-		panning(x, y, data);
-	return (EXIT_SUCCESS);
+	return (keysym >= XK_Shift_L && keysym <= XK_Hyper_R);
 }

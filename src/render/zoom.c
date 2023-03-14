@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:45:06 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 17:31:36 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:42:21 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void	zoom(t_s_data *data, t_s_vec2d_d *mouse)
 	data->view_fractal->origin.x = origin_new.x;
 	data->view_fractal->origin.y = origin_new.y;
 	data->view_ratio = new_ratio;
+	data->zoom->zoom_scale *= zoom_factor;
+	data->zoom->zoom_count++;
 	data->trigger_render = true;
 }

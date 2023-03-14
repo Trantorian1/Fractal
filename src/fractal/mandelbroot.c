@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:13:07 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 16:00:57 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:37:55 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_s_fractal	*mandelbroot(void)
 
 	mandelbroot.series = &escape_time;
 	mandelbroot.color = &color_hsv;
-	mandelbroot.max_iter = 500;
+	mandelbroot.max_iter = 1000;
 	mandelbroot.bail_bound = 4;
 	mandelbroot_bounds(&mandelbroot);
 	return (&mandelbroot);

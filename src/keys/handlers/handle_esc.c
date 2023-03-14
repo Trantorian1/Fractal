@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_mouse_move.c                                 :+:      :+:    :+:   */
+/*   handle_esc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 17:41:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 18:35:29 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/14 10:26:14 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/14 10:27:09 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "event_mouse_move.h"
+#include "handle_esc.h"
 
-#include "panning.h"
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "event_destroy.h"
 
-int	event_mouse_move(int x, int y, t_s_data *data)
+void	handle_esc(t_s_data *data)
 {
-	if (data->panning->is_panning)
-		panning(x, y, data);
-	return (EXIT_SUCCESS);
+	event_destroy(data);
 }

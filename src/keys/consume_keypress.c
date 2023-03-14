@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_mouse_move.c                                 :+:      :+:    :+:   */
+/*   consume_keypress.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 17:41:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 18:35:29 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/14 09:31:52 by emcnab            #+#    #+#             */
+/*   Updated: 2023/03/14 10:29:35 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "event_mouse_move.h"
+#include "consume_keypress.h"
 
-#include "panning.h"
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "is_key_pressed.h"
+#include "s_data.h"
+#include <X11/keysym.h>
+#include <stdint.h>
 
-int	event_mouse_move(int x, int y, t_s_data *data)
+void	consume_keypress(t_s_data *data, int keysym, void f(t_s_data *))
 {
-	if (data->panning->is_panning)
-		panning(x, y, data);
-	return (EXIT_SUCCESS);
+	int64_t		mask;
+	t_s_keys	*keys;
+
+	mask = is_key_pressed(data, keysym);
+	if (mask == 0)
+		return ;
+	f(data);
+	keys = data->keys;
+	keys->pressed &= ~mask;
 }
