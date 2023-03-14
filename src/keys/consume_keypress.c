@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:31:52 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 10:29:35 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 10:52:24 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,33 @@
 #include <X11/keysym.h>
 #include <stdint.h>
 
-void	consume_keypress(t_s_data *data, int keysym, void f(t_s_data *))
+static bool	validate_keycomb(t_s_data *data, t_s_keycomb *keycomb)
 {
-	int64_t		mask;
 	t_s_keys	*keys;
+	int32_t		i;
+	int64_t		masks[KEYCOMB_MAX];
 
-	mask = is_key_pressed(data, keysym);
-	if (mask == 0)
-		return ;
-	f(data);
 	keys = data->keys;
-	keys->pressed &= ~mask;
+	i = 0;
+	while (i < keycomb->size)
+	{
+		masks[i] = is_key_pressed(data, keycomb->keys[i]);
+		if (masks[i] == 0)
+			return (false);
+		i++;
+	}
+	i = 0;
+	while (i < keycomb->size)
+	{
+		keys->pressed &= ~masks[i];
+		i++;
+	}
+	return (true);
+}
+
+void	consume_keypress(t_s_data *data, t_s_keycomb *keycomb)
+{
+	if (validate_keycomb(data, keycomb) == false)
+		return ;
+	keycomb->handler(data);
 }
