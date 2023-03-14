@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_fractal.h                                        :+:      :+:    :+:   */
+/*   julia.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/08 14:40:32 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 16:28:06 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/14 16:18:38 by                   #+#    #+#             */
+/*   Updated: 2023/03/14 16:19:06 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef E_FRACTAL_H
-# define E_FRACTAL_H
+#ifndef JULIA_H
+# define JULIA_H
 
-typedef enum E_FRACTAL_H
-{
-	MANDELBROOT,
-	JULIA,
-	E_FRACTAL_SIZE
-}	t_e_fractal;
+# include "s_data.h"
+
+t_s_fractal	*julia(void);
 
 #endif

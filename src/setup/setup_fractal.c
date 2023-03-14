@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:41:43 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 15:27:45 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:28:17 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 
 #include "setup_fractal.h"
 
-#include "fractal_test.h"
-#include "fractal_random.h"
 #include "mandelbroot.h"
+#include "julia.h"
 
 typedef t_s_fractal	*(*t_generator)(void);
 
@@ -74,10 +73,8 @@ static void	setup_view_fractal(t_s_data *data, t_s_fractal *fractal)
 void	setup_fractal(t_s_data *data, t_e_fractal type)
 {
 	static const t_generator	generators[E_FRACTAL_SIZE] = {
-		NULL,
-		NULL,
 		&mandelbroot,
-		NULL
+		&julia
 	};
 
 	if (!data)

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:30 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 15:17:11 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:17:37 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_fractal
 	int32_t		max_iter_initial;
 	int32_t		delta_iter;
 	int32_t		bail_bound;
+	void		*data;
 	t_s_view	*view_initial;
 	t_s_bounds	*bounds;
 	double		(*series)(t_s_data *, t_s_vec2d_d*);
