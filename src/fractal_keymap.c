@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:18:35 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 13:23:32 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:28:48 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "handle_up_arrow.h"
 #include "handle_down_arrow.h"
 #include "handle_r.h"
+#include "handle_d.h"
 #include "handle_esc.h"
 #include "consume_keypress.h"
 #include "s_keycomb.h"
@@ -28,8 +29,9 @@ static t_s_keycomb	g_keymap[] = {
 {.size = 1, .keys = {XK_Right}, .handler = &handle_right_arrow},
 {.size = 1, .keys = {XK_Up}, .handler = &handle_up_arrow},
 {.size = 1, .keys = {XK_Down}, .handler = &handle_down_arrow},
-{.size = 1, .keys = {XK_Escape}, .handler = &handle_esc},
 {.size = 1, .keys = {XK_R}, .handler = &handle_r},
+{.size = 1, .keys = {XK_D}, .handler = &handle_d},
+{.size = 1, .keys = {XK_Escape}, .handler = &handle_esc},
 };
 
 void	fractal_keymap(t_s_data *data)

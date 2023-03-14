@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:20:30 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 14:22:04 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:17:11 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define S_DATA_H
 
 # include "libft.h"
-#include "e_states.h"
+# include "e_states.h"
 # include "s_view.h"
 # include "s_bounds.h"
 # include <stdint.h>
@@ -22,6 +22,7 @@
 typedef struct s_data
 {
 	bool				trigger_render;
+	bool				debug;
 	double				view_ratio;
 	double				view_padding;
 	void				*mlx;

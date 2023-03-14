@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 12:21:46 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 15:52:30 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:25:56 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include "render_fill.h"
 
+#include "color_invert.h"
 #include "paint.h"
 #include "libft.h"
 
@@ -36,10 +37,12 @@ void	render_fill(
 {
 	t_s_vec2d_d	in_screen;
 
-	in_screen.x = origin->x;
+	if (data->debug == true)
+		color = color_invert(color);
+	in_screen.x = origin->x + 1;
 	while ((in_screen.x - origin->x) < len)
 	{
-		in_screen.y = origin->y;
+		in_screen.y = origin->y + 1;
 		while ((in_screen.y - origin->y) < len)
 		{
 			paint(data, &in_screen, color);
