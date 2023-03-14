@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:49:19 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 10:55:45 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:43:08 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include "event_mouse_down.h"
 #include "event_mouse_up.h"
 #include "event_mouse_move.h"
-#include "renderer.h"
+#include "fractal_loop.h"
 #include "mlx.h"
 #include <X11/X.h>
 
@@ -46,7 +46,7 @@ void	setup_hooks(t_s_data *data)
 	if (data == NULL)
 		return ;
 	window = data->main_window;
-	mlx_loop_hook(data->mlx, &renderer, data);
+	mlx_loop_hook(data->mlx, &fractal_loop, data);
 	mlx_hook(window, DestroyNotify, NoEventMask, &event_destroy, data);
 	mlx_hook(window, KeyPress, KeyPressMask, &event_keypress, data);
 	mlx_hook(window, KeyRelease, KeyReleaseMask, &event_keyrelease, data);

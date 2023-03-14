@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   renderer.h                                         :+:      :+:    :+:   */
+/*   fractal_loop.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 14:41:51 by                   #+#    #+#             */
-/*   Updated: 2023/03/14 14:41:51 by                  ###   ########.fr       */
+/*   Created: 2023/03/14 14:41:15 by                   #+#    #+#             */
+/*   Updated: 2023/03/14 14:41:15 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDERER_H
-# define RENDERER_H
+#ifndef FRACTAL_LOOP_H
+# define FRACTAL_LOOP_H
 
 # include "s_data.h"
 
-void	renderer(t_s_data *data);
+int	fractal_loop(t_s_data *data);
 
 #endif

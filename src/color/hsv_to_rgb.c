@@ -6,13 +6,14 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:35:19 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 14:36:01 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:54:22 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hsv_to_rgb.h"
 
 #include "to_rgb.h"
+#include <float.h>
 #include <math.h>
 
 typedef struct s_rgb
@@ -43,29 +44,29 @@ static void	pqt_switch(
 	int32_t sextant)
 {
 	if (sextant == 0)
-		return ((void)(rgb->r = hsv->v * 255),
-				(void)(rgb->g = pqt->t * 255),
-				(void)(rgb->b = pqt->p * 255));
+		return ((void)(rgb->r = (int32_t)(hsv->v * 255)),
+				(void)(rgb->g = (int32_t)(pqt->t * 255)),
+				(void)(rgb->b = (int32_t)(pqt->p * 255)));
 	if (sextant == 1)
-		return ((void)(rgb->r = pqt->q * 255),
-				(void)(rgb->g = hsv->v * 255),
-				(void)(rgb->b = pqt->p * 255));
+		return ((void)(rgb->r = (int32_t)(pqt->q * 255)),
+				(void)(rgb->g = (int32_t)(hsv->v * 255)),
+				(void)(rgb->b = (int32_t)(pqt->p * 255)));
 	if (sextant == 2)
-		return ((void)(rgb->r = pqt->p * 255),
-				(void)(rgb->g = hsv->v * 255),
-				(void)(rgb->b = pqt->t * 255));
+		return ((void)(rgb->r = (int32_t)(pqt->p * 255)),
+				(void)(rgb->g = (int32_t)(hsv->v * 255)),
+				(void)(rgb->b = (int32_t)(pqt->t * 255)));
 	if (sextant == 3)
-		return ((void)(rgb->r = pqt->p * 255),
-				(void)(rgb->g = pqt->q * 255),
-				(void)(rgb->b = hsv->v * 255));
+		return ((void)(rgb->r = (int32_t)(pqt->p * 255)),
+				(void)(rgb->g = (int32_t)(pqt->q * 255)),
+				(void)(rgb->b = (int32_t)(hsv->v * 255)));
 	if (sextant == 4)
-		return ((void)(rgb->r = pqt->t * 255),
-				(void)(rgb->g = pqt->p * 255),
-				(void)(rgb->b = hsv->v * 255));
+		return ((void)(rgb->r = (int32_t)(pqt->t * 255)),
+				(void)(rgb->g = (int32_t)(pqt->p * 255)),
+				(void)(rgb->b = (int32_t)(hsv->v * 255)));
 	if (sextant == 5)
-		return ((void)(rgb->r = hsv->v * 255),
-				(void)(rgb->g = pqt->p * 255),
-				(void)(rgb->b = pqt->q * 255));
+		return ((void)(rgb->r = (int32_t)(hsv->v * 255)),
+				(void)(rgb->g = (int32_t)(pqt->p * 255)),
+				(void)(rgb->b = (int32_t)(pqt->q * 255)));
 }
 
 static void	get_rgb(t_s_rgb *rgb, t_s_hsv *hsv)
@@ -87,7 +88,15 @@ int32_t	hsv_to_rgb(double h, double s, double v)
 {
 	t_s_hsv	hsv;
 	t_s_rgb	rgb;
+	int32_t	vi;
 
+	if (h >= 360)
+		h = fmod(h, 360);
+	if (s <= DBL_EPSILON)
+	{
+		vi = (int32_t)(v * 255);
+		return (to_rgb(vi, vi, vi));
+	}
 	hsv.h = h;
 	hsv.s = s;
 	hsv.v = v;

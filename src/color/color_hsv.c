@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 20:59:03 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/10 21:59:04 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:59:01 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int32_t	color_hsv(t_s_data *data, double iter)
 		return (0x0);
 	powi = pow(iter / data->fractal->max_iter, 2.0);
 	powz = pow(powi * data->fractal->max_iter, 1.5);
-	index = (int32_t)(fmod(powz, data->fractal->max_iter));
-	return (gradient[(int32_t)index]);
+	index = (int32_t)powz % data->fractal->max_iter_initial;
+	return (gradient[index]);
 }
