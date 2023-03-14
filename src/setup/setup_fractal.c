@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:41:43 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/13 17:31:10 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:24:16 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	setup_fractal(t_s_data *data, t_e_fractal type)
 	if (!data)
 		return ;
 	data->fractal = generators[type]();
+	data->fractal->max_iter = data->fractal->max_iter_initial;
 	center_fractal(data, data->fractal);
 	setup_view_fractal(data, data->fractal);
 	data->trigger_render = true;
