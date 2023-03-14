@@ -6,38 +6,38 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:18:35 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 11:52:51 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 13:01:41 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal_keymap.h"
 
 #include "handle_esc.h"
+#include "handle_left_arrow.h"
+#include "handle_right_arrow.h"
+#include "handle_up_arrow.h"
+#include "handle_down_arrow.h"
 #include "consume_keypress.h"
 #include "s_keycomb.h"
 #include <X11/keysym.h>
 #include <stdio.h>
 
-#define MAP_SIZE 2
-
-static void	test(t_s_data *data);
 static t_s_keycomb	g_keymap[] = {
-{.size = 1, .keys = {XK_Up}, .handler = &test},
+{.size = 1, .keys = {XK_Left}, .handler = &handle_left_arrow},
+{.size = 1, .keys = {XK_Right}, .handler = &handle_right_arrow},
+{.size = 1, .keys = {XK_Up}, .handler = &handle_up_arrow},
+{.size = 1, .keys = {XK_Down}, .handler = &handle_down_arrow},
 {.size = 1, .keys = {XK_Escape}, .handler = &handle_esc}
 };
-
-static void	test(t_s_data *data)
-{
-	(void)data;
-	printf("Top key pressed !\n");
-}
 
 void	fractal_keymap(t_s_data *data)
 {
 	int32_t	i;
+	int32_t	target;
 
 	i = 0;
-	while (i < MAP_SIZE)
+	target = sizeof(g_keymap) / sizeof(*g_keymap);
+	while (i < target)
 	{
 		consume_keypress(data, &g_keymap[i]);
 		i++;
