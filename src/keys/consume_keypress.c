@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:31:52 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 10:52:24 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:52:08 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "s_data.h"
 #include <X11/keysym.h>
 #include <stdint.h>
+#include <stdio.h>
 
 static bool	validate_keycomb(t_s_data *data, t_s_keycomb *keycomb)
 {

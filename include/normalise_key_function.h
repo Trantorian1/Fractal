@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_key_function.c                                  :+:      :+:    :+:   */
+/*   normalise_key_function.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 09:47:31 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 11:39:35 by emcnab           ###   ########.fr       */
+/*   Created: 2023/03/14 11:35:56 by                   #+#    #+#             */
+/*   Updated: 2023/03/14 11:35:56 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "is_key_function.h"
+#ifndef NORMALISE_KEY_FUNCTION_H
+# define NORMALISE_KEY_FUNCTION_H
 
-#include "normalise_key_function.h"
-#include <X11/keysym.h>
+# include <stdint.h>
 
-bool	is_key_function(int keysym)
-{
-	return (normalise_key_func(keysym) != -1);
-}
+int32_t	normalise_key_func(int keysym);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: emcnab <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:18:35 by emcnab            #+#    #+#             */
-/*   Updated: 2023/03/14 10:56:47 by emcnab           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:52:51 by emcnab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 
 static void	test(t_s_data *data);
 static t_s_keycomb	g_keymap[] = {
-{.size = 2, .keys = {XK_Shift_L, XK_A}, .handler = &test},
+{.size = 1, .keys = {XK_Up}, .handler = &test},
 {.size = 1, .keys = {XK_Escape}, .handler = &handle_esc}
 };
 
 static void	test(t_s_data *data)
 {
 	(void)data;
-	printf("S-A key pressed !\n");
+	printf("Top key pressed !\n");
 }
 
 void	fractal_keymap(t_s_data *data)
